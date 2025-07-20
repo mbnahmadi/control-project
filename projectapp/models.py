@@ -37,6 +37,7 @@ class ProjectModel(models.Model):
     description = models.TextField(verbose_name=_('Description'))
     start_date = models.DateField(verbose_name=_('Start dateTime'))
     end_date = models.DateField(verbose_name=_('End dateTime'), null=True, blank=True)
+    total_days = models.PositiveIntegerField(verbose_name=_('Total number of days'), default=0, editable=False)
     start_cycle = models.CharField(verbose_name=_('Start cycle'), choices=CYCLES_CHOICES, max_length=5, null=False, blank=False)
     end_cycle = models.CharField(verbose_name=_('End cycle'), choices=CYCLES_CHOICES, max_length=5,null=True, blank=True)
     total_cycle = models.PositiveIntegerField(verbose_name=_('Total cycle'), default=0, editable=False)
@@ -69,6 +70,14 @@ class ProjectModel(models.Model):
 
 
     def save(self, *args, **kwargs):
+
+        # total days
+        if self.start_date and self.end_date:
+            self.total_days = (self.end_date - self.start_date).days + 1
+        else:
+            self.total_days = 0
+
+        #total cycle
         if (
             self.start_date and self.end_date and 
             self.start_cycle and self.end_cycle

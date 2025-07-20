@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'projectapp.apps.ProjectappConfig',
     #export data as xlsx (also CSV and json)
     'import_export',
+    'rangefilter'
 ]
 
 EXPORT_FORMATS = [XLSX]

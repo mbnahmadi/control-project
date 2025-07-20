@@ -1,8 +1,9 @@
 from django.contrib import admin
-from import_export.admin import ExportMixin
+from import_export.admin import ExportMixin, ExportActionMixin
 from import_export import resources, fields
 from .models import CompanyModel, DayFormatModel, ProjectModel
 from .forms import ProjectFilterForm
+from rangefilter.filters import DateRangeFilter
 from django.template.response import TemplateResponse
 from django.utils.html import format_html
 
@@ -24,6 +25,11 @@ class ProjectResource(resources.ModelResource):
     end_date = fields.Field(
         column_name='end date',
         attribute='end_date'
+    )
+    total_days_display = fields.Field(
+        column_name='total days',
+        attribute='total_days',
+        readonly=True
     )
     location = fields.Field(
         column_name='location',
@@ -58,6 +64,7 @@ class ProjectResource(resources.ModelResource):
             'description',
             'start_date',
             'end_date',
+            'total_days',
             'location',
             'start_cycle_display',
             'end_cycle_display',
@@ -70,6 +77,7 @@ class ProjectResource(resources.ModelResource):
             'description',
             'start_date',
             'end_date',
+            'total_days',
             'location',
             'start_cycle_display',
             'end_cycle_display',
@@ -88,12 +96,18 @@ class ProjectResource(resources.ModelResource):
 
 
 @admin.register(ProjectModel)
-class projectModelAdmin(ExportMixin, admin.ModelAdmin):
+class projectModelAdmin(ExportActionMixin, ExportMixin, admin.ModelAdmin):
     resource_class = ProjectResource
-    list_display = ('company_name', 'location', 'start_date', 'end_date', 'total_cycle', 'location', 'days_format')
-    list_filter = ['company_name', 'start_date', 'end_date']
+    list_display = ('company_name', 'location', 'start_date', 'end_date', 'total_cycle', 'total_days', 'days_format')
+    # list_filter = ['company_name', 'location', 'start_date', 'end_date']
+    list_filter = (
+        'company_name',
+        'location',
+        ('start_date', DateRangeFilter),
+        ('end_date', DateRangeFilter),
+    )
     search_fields = ('company_name__name', 'start_date', 'end_date')
-    readonly_fields = ('total_cycle',)
+    readonly_fields = ('total_cycle', 'total_days')
 
 
 # @admin.register(ProjectModel)
