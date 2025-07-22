@@ -35,6 +35,7 @@ CYCLES_CHOICES = [
 class ProjectModel(models.Model):
     company_name = models.ForeignKey('CompanyModel', on_delete=models.CASCADE, related_name='project')
     description = models.TextField(verbose_name=_('Description'))
+    image_description = models.FileField(upload_to='pic_files', verbose_name=_('Image'), null=True, blank=True)
     start_date = models.DateField(verbose_name=_('Start dateTime'))
     end_date = models.DateField(verbose_name=_('End dateTime'), null=True, blank=True)
     total_days = models.PositiveIntegerField(verbose_name=_('Total number of days'), default=0, editable=False)

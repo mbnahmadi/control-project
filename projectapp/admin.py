@@ -18,6 +18,10 @@ class ProjectResource(resources.ModelResource):
         column_name='description',
         attribute='description'
     )
+    # image_description = fields.Field(
+    #     column_name='image uploaded',
+    #     attribute='image_description.url'
+    # )
     start_date = fields.Field(
         column_name='start date',
         attribute='start_date'
@@ -62,6 +66,7 @@ class ProjectResource(resources.ModelResource):
             'id',
             'company_name',
             'description',
+            # 'image_description',
             'start_date',
             'end_date',
             'total_days',
@@ -75,6 +80,7 @@ class ProjectResource(resources.ModelResource):
             'id',
             'company_name',
             'description',
+            # 'image_description',
             'start_date',
             'end_date',
             'total_days',
