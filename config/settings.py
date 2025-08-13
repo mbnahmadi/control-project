@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #apps
     'projectapp.apps.ProjectappConfig',
+    'pdfreportapp.apps.PdfreportappConfig',
     #export data as xlsx (also CSV and json)
     'import_export',
     'rangefilter'

@@ -30,11 +30,11 @@ class ProjectResource(resources.ModelResource):
         column_name='end date',
         attribute='end_date'
     )
-    total_days_display = fields.Field(
-        column_name='total days',
-        attribute='total_days',
-        readonly=True
-    )
+    # total_days_display = fields.Field(
+    #     column_name='total days',
+    #     attribute='total_days',
+    #     readonly=True
+    # )
     location = fields.Field(
         column_name='location',
         attribute='location'
@@ -49,11 +49,11 @@ class ProjectResource(resources.ModelResource):
         attribute='end_cycle',
         readonly=True
     )
-    total_cycle_display = fields.Field(
-        column_name='total cycle',
-        attribute='total_cycle',
-        readonly=True
-    )
+    # total_cycle_display = fields.Field(
+    #     column_name='total cycle',
+    #     attribute='total_cycle',
+    #     readonly=True
+    # )
     days_format = fields.Field(
         column_name='day format',
         attribute='days_format__format_name',
