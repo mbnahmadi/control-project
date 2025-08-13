@@ -26,14 +26,22 @@ class DayFormatModel(models.Model):
         return self.format_name
 
 
+
+class ActiveLocationsManager(models.Manager):
+    def get_queryset(self):
+        # فقط کوئری هایی که end_date, end_cycle انها خالی هست
+        return super().get_queryset().filter(end_date__isnull=True, end_cycle__isnull=True)
+
+
+
 CYCLES_CHOICES = [
     ('1', _('cycle 1')),
     ('2', _('cycle 2'))
 ]
-
-
 class ProjectModel(models.Model):
     company_name = models.ForeignKey('CompanyModel', on_delete=models.CASCADE, related_name='project')
+    lat = models.FloatField(verbose_name=_('lat'), default=35.0)
+    lon = models.FloatField(verbose_name=_('lon'), default=50.0)
     description = models.TextField(verbose_name=_('Description'))
     image_description = models.FileField(upload_to='pic_files', verbose_name=_('Image'), null=True, blank=True)
     start_date = models.DateField(verbose_name=_('Start dateTime'))
@@ -47,6 +55,9 @@ class ProjectModel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+
+    objects = models.Manager() # اصلی و شامل همه پروژه ها
+    active_locations = ActiveLocationsManager() # فقط پروژه‌های بدون end_date و end_cycle
 
 
     def clean(self):
