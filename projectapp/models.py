@@ -40,8 +40,8 @@ CYCLES_CHOICES = [
 ]
 class ProjectModel(models.Model):
     company_name = models.ForeignKey('CompanyModel', on_delete=models.CASCADE, related_name='project')
-    lat = models.FloatField(verbose_name=_('lat'), default=35.0)
-    lon = models.FloatField(verbose_name=_('lon'), default=50.0)
+    lat = models.FloatField(verbose_name=_('lat'), null=False, blank=False)
+    lon = models.FloatField(verbose_name=_('lon'), null=False, blank=False)
     description = models.TextField(verbose_name=_('Description'))
     image_description = models.FileField(upload_to='pic_files', verbose_name=_('Image'), null=True, blank=True)
     start_date = models.DateField(verbose_name=_('Start dateTime'))
