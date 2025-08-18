@@ -1,9 +1,106 @@
 html, body {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 #map {
     width: 100%;
     height: 100vh;
 }
+
+/*  --------------------------- new ---------------------------  */
+body, html {
+    margin: 0;
+    height: 100%;
+    font-family: sans-serif;
+    box-sizing: border-box;
+}
+.container {
+    display: flex;
+    height: 100vh;
+}
+/* Sidebar */
+.sidebar {
+    width: 300px;
+    background: #f4f4f4;
+    padding: 15px;
+    border-right: 1px solid #ddd;
+    box-sizing: border-box;
+}
+.sidebar h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+.sidebar label {
+    font-size: 14px;
+    display: block;
+    margin-top: 10px;
+    color: rgb(130, 130, 130);
+    font-weight: bold;
+}
+.sidebar input, .sidebar select, .sidebar button {
+    width: 100%;
+    padding: 6px;
+    margin-top: 5px;
+    font-size: 14px;
+}
+
+#filter-form{
+    padding-right: 15px;
+    margin-top: 60px;
+}
+
+#all-locations-btn{
+    background-color: rgb(77, 152, 2);
+    height: 40px;
+    border-radius: 5px;
+    color: white;
+    border-style: none;
+}
+
+#active-locations-btn{
+    background-color: rgb(15, 4, 180);
+    height: 40px;
+    border-radius: 5px;
+    color: white;
+    border-style: none;
+}
+#submit{
+    background-color: rgb(27, 180, 4);
+    width: 100px;
+    height: 40px;
+    border-radius: 5px;
+    color: white;
+    border-style: none;
+}
+#report{
+    background-color: rgb(10, 23, 104);
+    width: 100px;
+    height: 40px;
+    border-radius: 5px;
+    color: white;
+    border-style: none;
+}
+.btn{
+    margin-top: 20px;
+}
+.logout{
+    background-color: rgb(173, 9, 9);
+    width: 100px;
+    height: 40px;
+    border-radius: 5px;
+    color: white;
+    border-style: none;
+}
+.logout a {
+    color: white;
+    text-decoration: none;
+}
+/* Map */
+/* #map {
+    flex-grow: 1;
+    height: 100%;
+} */
+
+

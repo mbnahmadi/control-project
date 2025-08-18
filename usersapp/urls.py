@@ -19,10 +19,6 @@ from . import views
 
 
 urlpatterns = [
-    path('get-active-locations/', views.GetActiveLocations.as_view(), name='get-active-locations'),
-    path('get-all-locations/', views.GetAllLocationsView.as_view(), name='get-all-locations'),
-    # path('all-projects/', views.ShowAllProjectsView.as_view(), name='all-projects'),
-    # path('all-companies-active-days/', views.CompanyActiveDaysAPIView.as_view(), name='all-companies-active-days'),
-    path("company-location-daterange/", views.CompanyLocationDateRangeAPIView.as_view(), name="company-location-daterange"),
-    path('home/', views.home_view, name='home'),
+    path("login/", views.CustomLoginView.as_view(), name="login"),
+    path("logout/", views.LogoutView, name="logout"),
 ]

@@ -41,12 +41,11 @@ download_pdf_files_as_zip.short_description = "Download selected files as ZIP"
 
 @admin.register(PdfReportModel)
 class PdfRepoerModelAdmin(admin.ModelAdmin):
-    list_display = ('company_name', 'start_date', 'end_date', 'cycle', 'location', 'days_format')
+    list_display = ('company_name', 'start_date', 'cycle', 'location', 'days_format')
     list_filter = (
         'company_name',
         'location',
         ('start_date', DateRangeFilter),
-        ('end_date', DateRangeFilter),
     )
     actions = [download_pdf_files_as_zip]
 

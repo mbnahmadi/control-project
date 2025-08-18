@@ -74,7 +74,8 @@ class ProjectResource(resources.ModelResource):
             'start_cycle_display',
             'end_cycle_display',
             'total_cycle',
-            'days_format'
+            'days_format',
+            # 'is_active'
         )
         export_order = (
             'id',
@@ -104,7 +105,7 @@ class ProjectResource(resources.ModelResource):
 @admin.register(ProjectModel)
 class projectModelAdmin(ExportActionMixin, ExportMixin, admin.ModelAdmin):
     resource_class = ProjectResource
-    list_display = ('company_name', 'location', 'start_date', 'end_date', 'total_cycle', 'total_days', 'days_format')
+    list_display = ('company_name', 'location', 'start_date', 'end_date', 'total_cycle', 'total_days', 'days_format', 'is_active_now')
     # list_filter = ['company_name', 'location', 'start_date', 'end_date']
     list_filter = (
         'company_name',
@@ -113,7 +114,7 @@ class projectModelAdmin(ExportActionMixin, ExportMixin, admin.ModelAdmin):
         ('end_date', DateRangeFilter),
     )
     search_fields = ('company_name__name', 'start_date', 'end_date')
-    readonly_fields = ('total_cycle', 'total_days')
+    readonly_fields = ('total_cycle', 'total_days', 'is_active_now')
 
 
 # @admin.register(ProjectModel)

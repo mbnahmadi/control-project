@@ -27,7 +27,7 @@ class PdfReportModel(models.Model):
     # description = models.TextField(verbose_name=_('Description'), null=True, blank=True)
     pdf_file = models.FileField(upload_to='pdf_files', verbose_name=_('PDF'), null=False, blank=False)
     start_date = models.DateField(verbose_name=_('Start dateTime'))
-    end_date = models.DateField(verbose_name=_('End dateTime'), null=True, blank=True)
+    # end_date = models.DateField(verbose_name=_('End dateTime'), null=True, blank=True)
     # total_days = models.PositiveIntegerField(verbose_name=_('Total number of days'), default=0, editable=False)
     # start_cycle = models.CharField(verbose_name=_('Start cycle'), choices=CYCLES_CHOICES, max_length=5, null=False, blank=False)
     cycle = models.CharField(verbose_name=_('cycle'), choices=CYCLES_CHOICES, max_length=5)

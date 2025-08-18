@@ -30,7 +30,8 @@ class DayFormatModel(models.Model):
 class ActiveLocationsManager(models.Manager):
     def get_queryset(self):
         # فقط کوئری هایی که end_date, end_cycle انها خالی هست
-        return super().get_queryset().filter(end_date__isnull=True, end_cycle__isnull=True)
+        return super().get_queryset().filter(is_active_now=True)
+        # return super().get_queryset().filter(end_date__isnull=True, end_cycle__isnull=True)
 
 
 
@@ -42,7 +43,7 @@ class ProjectModel(models.Model):
     company_name = models.ForeignKey('CompanyModel', on_delete=models.CASCADE, related_name='project')
     lat = models.FloatField(verbose_name=_('lat'), null=False, blank=False)
     lon = models.FloatField(verbose_name=_('lon'), null=False, blank=False)
-    description = models.TextField(verbose_name=_('Description'))
+    description = models.TextField(verbose_name=_('Description'), null=True, blank=True)
     image_description = models.FileField(upload_to='pic_files', verbose_name=_('Image'), null=True, blank=True)
     start_date = models.DateField(verbose_name=_('Start dateTime'))
     end_date = models.DateField(verbose_name=_('End dateTime'), null=True, blank=True)
@@ -52,6 +53,7 @@ class ProjectModel(models.Model):
     total_cycle = models.PositiveIntegerField(verbose_name=_('Total cycle'), default=0, editable=False)
     location = models.CharField(verbose_name=_('Location'), max_length=255)
     days_format = models.ForeignKey('DayFormatModel', on_delete=models.CASCADE, related_name='format')
+    is_active_now = models.BooleanField(verbose_name=_('is_active_now'), default=False, editable=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -83,6 +85,11 @@ class ProjectModel(models.Model):
 
     def save(self, *args, **kwargs):
 
+        if self.end_date and self.end_cycle:
+            self.is_active_now = False
+        else:
+            self.is_active_now = True
+
         # total days
         if self.start_date and self.end_date:
             self.total_days = (self.end_date - self.start_date).days + 1
@@ -104,6 +111,10 @@ class ProjectModel(models.Model):
 
         else:
             self.total_cycle = 0
+        
+
+        # is active
+        # self.is_active = True if self.end_date and self.end_cycle is None else False
 
         super().save(*args, **kwargs)
 

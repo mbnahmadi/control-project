@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import os
+from django.conf.global_settings import AUTH_USER_MODEL
 from import_export.formats.base_formats import XLSX
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -40,15 +41,26 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'django_filters',
     #apps
     'projectapp.apps.ProjectappConfig',
+    'usersapp.apps.UsersappConfig',
     'pdfreportapp.apps.PdfreportappConfig',
     #export data as xlsx (also CSV and json)
     'import_export',
     'rangefilter'
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+
+    'DATE_INPUT_FORMATS': ['%Y-%m-%d', '%d-%m-%Y'],
+}
+
 EXPORT_FORMATS = [XLSX]
+AUTH_USER_MODEL = 'usersapp.CustomUserModel'
+AUTHENTICATION_BACKENDS = ["usersapp.backends.UsernameBackend"]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
