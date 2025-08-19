@@ -149,6 +149,7 @@ document.getElementById("report").addEventListener("click", function() {
           <td class="border px-4 py-2">${point.location_name}</td>
           <td class="border px-4 py-2">${point.start_date}</td>
           <td class="border px-4 py-2">${point.end_date ?? '-'}</td>
+          <td class="border px-4 py-2">${point.days_format}</td>
           <td class="border px-4 py-2" style="color:${point.is_active_now ? 'green':'red'}">
           ${point.is_active_now ? 'Active' : 'Inactive'}
           
@@ -157,11 +158,12 @@ document.getElementById("report").addEventListener("click", function() {
         `;
         tbody.appendChild(tr);
       });
+      
             // <td class="border px-4 py-2">${company.total_days}</td>
             // <td class="border px-4 py-2">${company.total_location}</td>
     let summaryTr = document.createElement("tr");
     summaryTr.innerHTML = `
-        <td class="border px-4 py-2 font-bold text-right" style="background-color: #D0FFBC" colspan="6">sumary</td>
+        <td class="border px-4 py-2 font-bold text-right" style="background-color: #D0FFBC" colspan="7">sumary</td>
         <td class="border px-4 py-2 font-bold" style="background-color: #D0FFBC">${company.total_days}</td>
         <td class="border px-4 py-2 font-bold" style="background-color: #D0FFBC">${company.total_location}</td>
     `;

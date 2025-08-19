@@ -37,6 +37,7 @@ class PointActivitySerializer(serializers.Serializer):
     lon = serializers.FloatField()
     start_date = serializers.CharField()
     end_date = serializers.CharField()
+    days_format = serializers.CharField()
     is_active_now = serializers.BooleanField()
     active_days = serializers.IntegerField()
 

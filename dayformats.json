@@ -1,0 +1,37 @@
+[
+{
+  "model": "projectapp.dayformatmodel",
+  "pk": 1,
+  "fields": {
+    "format_name": "10"
+  }
+},
+{
+  "model": "projectapp.dayformatmodel",
+  "pk": 2,
+  "fields": {
+    "format_name": "10 days"
+  }
+},
+{
+  "model": "projectapp.dayformatmodel",
+  "pk": 3,
+  "fields": {
+    "format_name": "5 days"
+  }
+},
+{
+  "model": "projectapp.dayformatmodel",
+  "pk": 4,
+  "fields": {
+    "format_name": "7 days"
+  }
+},
+{
+  "model": "projectapp.dayformatmodel",
+  "pk": 5,
+  "fields": {
+    "format_name": "Route"
+  }
+}
+]

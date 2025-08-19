@@ -143,6 +143,7 @@ def get_company_points_activity(company_name=None, location_name=None, start_ran
             "lon": proj.lon,
             "start_date": proj.start_date,
             "end_date": proj.end_date,
+            "days_format": proj.days_format.format_name,
             "is_active_now": proj.is_active_now,
             "active_days": active_days
         })
