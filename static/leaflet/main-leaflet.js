@@ -23,6 +23,7 @@ function loadLocations(url) {
             markersLayer.clearLayers(); 
 
             data.forEach(loc => {
+                console.log(loc)
                 let icon = loc.is_active_now ? activeIcon : inactiveIcon;
 
                 let marker = L.marker([loc.lat, loc.lon], {icon: icon});
@@ -43,6 +44,14 @@ function loadLocations(url) {
                 marker.on('mouseout', function () {
                     this.closePopup();
                 });
+
+                // دانلود PDF با کلیک (فقط برای نقاط فعال)
+                if (loc.is_active_now) {
+                    marker.on('click', function () {
+                        window.location.href = `/projects/download-pdf/${loc.pk}/`;
+                    });
+                }
+
             });
         });
 }
@@ -124,6 +133,13 @@ filterForm.addEventListener('submit', function(e) {
                 marker.on('mouseout', function () {
                     this.closePopup();
                 });
+
+                // دانلود PDF با کلیک (فقط برای نقاط فعال)
+                if (point.is_active_now) {
+                    marker.on('click', function () {
+                        window.location.href = `/projects/download-pdf/${point.pk}/`;
+                    });
+                }
             });
         });
     });
@@ -179,3 +195,5 @@ document.getElementById("closeModal").addEventListener("click", function() {
     document.getElementById("map").classList.remove("hidden");
 
   });
+
+

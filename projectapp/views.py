@@ -2,7 +2,7 @@ from datetime import date
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
-
+from django.views import View
 from projectapp.admin import projectModelAdmin
 from .models import CompanyModel, ProjectModel
 from django.db.models import Q
@@ -39,6 +39,19 @@ class GetAllLocationsView(APIView):
         except ProjectModel.DoesNotExist:
             return Response({"error": "no active location found."}, status=404)
 
+from django.http import FileResponse, HttpResponseNotFound
+from .models import ProjectModel
+import os
+
+def download_latest_pdf(request, project_id):
+    project = ProjectModel.active_locations.get(id=project_id)
+    if project.latest_pdf_path and os.path.exists(project.latest_pdf_path):
+        # استخراج filename از مسیر برای دانلود
+        filename = os.path.basename(project.latest_pdf_path)
+        response = FileResponse(open(project.latest_pdf_path, 'rb'), content_type='application/pdf')
+        response['Content-Disposition'] = f'attachment; filename="{filename}"'
+        return response
+    return HttpResponseNotFound("No PDF available")
 
 # class ShowAllProjectsView(generics.ListAPIView):
 #     queryset = ProjectModel.objects.all()

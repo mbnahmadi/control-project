@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     #apps
     'projectapp.apps.ProjectappConfig',
     'usersapp.apps.UsersappConfig',
-    'pdfreportapp.apps.PdfreportappConfig',
+    'feedbackapp.apps.FeedbackappConfig',
     #export data as xlsx (also CSV and json)
     'import_export',
     'rangefilter'
@@ -56,6 +56,17 @@ REST_FRAMEWORK = {
 
     'DATE_INPUT_FORMATS': ['%Y-%m-%d', '%d-%m-%Y'],
 }
+
+# ------------ celery ---------------------------------
+
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379/2'
+CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379/2'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'UTC'
+
+# -------------------------------------------------------
 
 EXPORT_FORMATS = [XLSX]
 AUTH_USER_MODEL = 'usersapp.CustomUserModel'

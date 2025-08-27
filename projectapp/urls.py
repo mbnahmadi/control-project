@@ -24,5 +24,8 @@ urlpatterns = [
     # path('all-projects/', views.ShowAllProjectsView.as_view(), name='all-projects'),
     # path('all-companies-active-days/', views.CompanyActiveDaysAPIView.as_view(), name='all-companies-active-days'),
     path("company-location-daterange/", views.CompanyLocationDateRangeAPIView.as_view(), name="company-location-daterange"),
+
+    path('download-pdf/<int:project_id>/', views.download_latest_pdf, name='download_pdf'),
+
     path('home/', views.home_view, name='home'),
 ]

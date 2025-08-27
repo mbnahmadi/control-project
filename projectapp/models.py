@@ -1,6 +1,7 @@
 from django.db import models
 from datetime import timedelta
 from django.core.exceptions import ValidationError
+from core.files_path import location_file_path
 from django.utils.translation import gettext_lazy as _
 
 # Create your models here.
@@ -8,8 +9,8 @@ class CompanyModel(models.Model):
     name = models.CharField(verbose_name=_('Company name'), max_length=255, unique=True)
 
     class Meta:
-        verbose_name = _('Company name')
-        verbose_name_plural = _('companies name')
+        verbose_name = _('Company')
+        verbose_name_plural = _('companies')
 
     def __str__(self) -> str:
         return self.name
@@ -44,7 +45,7 @@ class ProjectModel(models.Model):
     lat = models.FloatField(verbose_name=_('lat'), null=False, blank=False)
     lon = models.FloatField(verbose_name=_('lon'), null=False, blank=False)
     description = models.TextField(verbose_name=_('Description'), null=True, blank=True)
-    image_description = models.FileField(upload_to='pic_files', verbose_name=_('Image'), null=True, blank=True)
+    image_description = models.FileField(upload_to=location_file_path, verbose_name=_('Image'), null=True, blank=True)
     start_date = models.DateField(verbose_name=_('Start dateTime'))
     end_date = models.DateField(verbose_name=_('End dateTime'), null=True, blank=True)
     total_days = models.PositiveIntegerField(verbose_name=_('Total number of days'), default=0, editable=False)
@@ -57,6 +58,10 @@ class ProjectModel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    # latest_pdf_url = models.URLField(verbose_name=_('Latest PDF URL'), null=True, blank=True, editable=False)
+
+    latest_pdf_path = models.CharField(verbose_name=_('Latest PDF path'), max_length=512,  null=True, blank=True)
+    # editable=False
 
     objects = models.Manager() # اصلی و شامل همه پروژه ها
     active_locations = ActiveLocationsManager() # فقط پروژه‌های بدون end_date و end_cycle
@@ -123,6 +128,5 @@ class ProjectModel(models.Model):
         verbose_name_plural = _('Projects')
 
     def __str__(self) -> str:
-        return f"{self.company_name}"
+        return f"{self.company_name} - {self.location}"
 
-    
