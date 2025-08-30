@@ -24,6 +24,7 @@ from config.settings import MEDIA_ROOT
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('_nested_admin/', include('nested_admin.urls')),
     path('projects/', include('projectapp.urls')),
     path('users/', include('usersapp.urls')),
 ]

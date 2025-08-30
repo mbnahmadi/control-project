@@ -128,5 +128,5 @@ class ProjectModel(models.Model):
         verbose_name_plural = _('Projects')
 
     def __str__(self) -> str:
-        return f"{self.company_name} - {self.location}"
+        return f"{self.company_name} - {self.location} - {self.start_date} - {self.end_date}"
 

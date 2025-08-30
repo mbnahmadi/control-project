@@ -11,9 +11,10 @@ class FeedBackModel(models.Model):
     project = models.ForeignKey(ProjectModel, on_delete=models.CASCADE, related_name="feedbacks", verbose_name=_('project'))
     name = models.CharField(verbose_name=_('Name of the employer'), max_length=255)
     phone_number = models.CharField(verbose_name=_('phone number'), help_text="Employer's mobile phone",  max_length=16)
-    through = models.CharField(verbose_name=_('How to declare?'), help_text=_('like whats app, phone, SMS or some thing else.'), max_length=255)
+    through = models.CharField(verbose_name=_('How to declare?'), help_text=_('like whats app, call, SMS or some thing else.'), max_length=255)
     date = models.DateField(verbose_name=_('date'))
     message = models.TextField()
+    # attachment = models.FileField(upload_to=feedback_file_path, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -26,10 +27,9 @@ class FeedBackModel(models.Model):
 
 class FeedBackResponseModel(models.Model):
     feedback = models.OneToOneField(FeedBackModel, on_delete=models.CASCADE, related_name="response", verbose_name=_('feedback'))
-    through = models.CharField(verbose_name=_('How to declare?'), help_text=_('like whats app, phone, SMS or some thing else.'), max_length=255)
+    through = models.CharField(verbose_name=_('How to declare?'), help_text=_('like whats app, call, SMS or some thing else.'), max_length=255)
     date = models.DateField(verbose_name=_('date'))
     message = models.TextField()
-    attachment = models.FileField(upload_to=feedback_file_path, blank=True, null=True)
     iso_form = models.FileField(upload_to=feedback_ISO_file_path, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -40,3 +40,13 @@ class FeedBackResponseModel(models.Model):
 
     def __str__(self):
         return f"Response to {self.feedback}"
+
+
+
+class FeedBackAttachment(models.Model):
+    feedback = models.ForeignKey(FeedBackModel, on_delete=models.CASCADE, related_name="attachments")
+    file = models.FileField(upload_to=feedback_file_path, blank=True, null=True)
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.file.name

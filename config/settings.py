@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'django_filters',
+    'nested_admin',
     #apps
     'projectapp.apps.ProjectappConfig',
     'usersapp.apps.UsersappConfig',
