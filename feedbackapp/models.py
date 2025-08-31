@@ -1,5 +1,3 @@
-from pyexpat import model
-from tabnanny import verbose
 from django.db import models
 from projectapp.models import ProjectModel
 from core.files_path import feedback_file_path, feedback_ISO_file_path
