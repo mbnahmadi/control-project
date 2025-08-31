@@ -1,7 +1,7 @@
 from django.contrib.admin import SimpleListFilter
 
 class HasFeedBackFilter(SimpleListFilter):
-    title = 'Has feedback'
+    title = 'feedback'
     parameter_name = 'has_feedback'
 
     def lookups(self, request, model_admin):
