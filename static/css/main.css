@@ -52,7 +52,7 @@ body, html {
 }
 
 #all-locations-btn{
-    background-color: rgb(77, 152, 2);
+    background-color: rgb(81, 69, 255);
     height: 40px;
     border-radius: 5px;
     color: white;
@@ -60,7 +60,14 @@ body, html {
 }
 
 #active-locations-btn{
-    background-color: rgb(15, 4, 180);
+    background-color: rgb(77, 152, 2) ;
+    height: 40px;
+    border-radius: 5px;
+    color: white;
+    border-style: none;
+}
+#all-routes-btn{
+    background-color: rgb(23, 147, 89);
     height: 40px;
     border-radius: 5px;
     color: white;

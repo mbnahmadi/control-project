@@ -1,41 +1,30 @@
 from rest_framework import serializers
 from .models import CompanyModel, ProjectModel
+from rest_framework_gis.serializers import GeoFeatureModelSerializer
+from rest_framework_gis.fields import GeometryField
 
-class ActiveLocationsSerializers(serializers.ModelSerializer):
+class ActiveLocationsSerializers(GeoFeatureModelSerializer):
     company_name = serializers.CharField(source='company_name.name')
     class Meta:
         model = ProjectModel
+        geo_field = 'geometry'
         fields = ['pk', 'company_name', 'geometry', 'location', 'is_active_now']
 
 
-class AllLocationsSerializers(serializers.ModelSerializer):
+class AllLocationsSerializers(GeoFeatureModelSerializer):
     company_name = serializers.CharField(source='company_name.name')
     class Meta:
         model = ProjectModel
+        geo_field = 'geometry'
         fields = ['pk', 'company_name', 'geometry', 'location', 'is_active_now', 'start_date', 'end_date']
 
 
-
-# class AllLocationsSerializer(serializers.ModelSerializer):
-#     # company_name = serializers.CharField(source='company_name.name')
-#     class Meta:
-#         model = CompanyModel
-#         fields = '__all__'
-
-
-
-# class ActiveDaysSerializer(serializers.Serializer):
-#     company_id = serializers.IntegerField()
-#     company_name = serializers.CharField()
-#     active_days = serializers.IntegerField()
-
-
-
 class PointActivitySerializer(serializers.Serializer):
-    location_name = serializers.CharField()
     pk = serializers.IntegerField()
-    lat = serializers.FloatField()
-    lon = serializers.FloatField()
+    location_name = serializers.CharField()
+    geometry = GeometryField()
+    # lat = serializers.FloatField()
+    # lon = serializers.FloatField()
     start_date = serializers.CharField()
     end_date = serializers.CharField()
     days_format = serializers.CharField()
@@ -46,6 +35,6 @@ class PointActivitySerializer(serializers.Serializer):
 class CompanyPointsActivitySerializer(serializers.Serializer):
     # company_id = serializers.IntegerField()
     company_name = serializers.CharField()
-    points = PointActivitySerializer(many=True)
+    detail = PointActivitySerializer(many=True)
     total_days = serializers.IntegerField()
     total_location = serializers.IntegerField()

@@ -46,7 +46,7 @@ class ProjectModel(models.Model):
     ]
     company_name = models.ForeignKey('CompanyModel', on_delete=models.CASCADE, related_name='project')
     geometry = gis_models.GeometryField(verbose_name=_('Geometry'), srid=4326, spatial_index=True, blank=False, null=False, 
-    help_text=_('format Input: Point → Lat,Lon | Line → Lat1,Lon1; Lat2,Lon2; Lat3,Lon3; ...')) # این میتونه هم لاین باشه هم پوینت
+                                        help_text=_('format Input: Point → Lat,Lon | Line → Lat1,Lon1; Lat2,Lon2; Lat3,Lon3; ...')) # این میتونه هم لاین باشه هم پوینت
     description = models.TextField(verbose_name=_('Description'), null=True, blank=True)
     image_description = models.FileField(upload_to=location_file_path, verbose_name=_('Image'), null=True, blank=True)
     start_date = models.DateField(verbose_name=_('Start dateTime'))

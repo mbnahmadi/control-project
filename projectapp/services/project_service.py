@@ -1,4 +1,4 @@
-from datetime import timedelta
+from datetime import date, timedelta
 from django.db.models import Q
 from projectapp.models import ProjectModel, CompanyModel
 
@@ -110,11 +110,7 @@ def get_company_points_activity(company_name=None, location_name=None, start_ran
 
     # فیلتر بر اساس بازه زمانی
     if start_range and end_range:
-        qs = qs.filter(
-            start_date__lte=end_range
-        ).filter(
-            Q(end_date__gte=start_range) | Q(end_date__isnull=True)
-        )
+        qs = qs.filter(start_date__lte=end_range).filter(Q(end_date__gte=start_range) | Q(end_date__isnull=True))
 
     # گروه‌بندی بر اساس شرکت
     companies = {}
@@ -123,7 +119,7 @@ def get_company_points_activity(company_name=None, location_name=None, start_ran
         if company not in companies:
             companies[company] = {
                 "company_name": company,
-                "points": [],
+                "detail": [],
                 "total_days": 0,
                 "total_location": 0
             }
@@ -135,13 +131,23 @@ def get_company_points_activity(company_name=None, location_name=None, start_ran
             active_days = (active_end - active_start).days + 1
 
         else:
-            active_days = 0
+            # active_days = 0
+            today = date.today()
+            active_start = proj.start_date
+            active_end = min(proj.end_date if proj.end_date else today, today)
+            active_days = (active_end - active_start).days + 1 if active_end >= active_start else 0
 
-        companies[company]["points"].append({
+        # geometry_to_send = proj.geometry.centroid if proj.is_line() else proj.geometry
+        # geometry_to_send = (
+        #     proj.geometry.centroid.geojson if proj.is_line()
+        #     else proj.geometry.geojson
+        # )
+        companies[company]["detail"].append({
             "location_name": proj.location,
             "pk": proj.pk,
-            "lat": proj.lat,
-            "lon": proj.lon,
+            "geometry": proj.geometry,
+            # "lat": proj.lat,
+            # "lon": proj.lon,
             "start_date": proj.start_date,
             "end_date": proj.end_date,
             "days_format": proj.days_format.format_name,

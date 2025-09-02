@@ -22,36 +22,62 @@ function loadLocations(url) {
         .then(data => {
             markersLayer.clearLayers(); 
 
-            data.forEach(loc => {
-                console.log(loc)
-                let icon = loc.is_active_now ? activeIcon : inactiveIcon;
-
-                let marker = L.marker([loc.lat, loc.lon], {icon: icon});
-                markersLayer.addLayer(marker);
-
-
-                marker.on('mouseover', function () {
-                    this.bindPopup(`
-                        <div style="direction: ltr; text-align: left; font-family: sans-serif; font-size:16px">
-                            <b style="color:#00008B">Company: </b><b style="color:#3b3b3b">${loc.company_name}</b> <br>
-                            <b style="color:#00008B">Location: </b><b style="color:#3b3b3b">${loc.location}</b><br> 
-                            <b style="color:#00008B">status: </b><b style="color:${loc.is_active_now ? 'green' : 'red'}">
-                                ${loc.is_active_now ? 'Active' : 'Inactive'}
-                            </b>            
-                        </div>
-                    `).openPopup();
-                });
-                marker.on('mouseout', function () {
-                    this.closePopup();
-                });
-
-                // دانلود PDF با کلیک (فقط برای نقاط فعال)
-                if (loc.is_active_now) {
-                    marker.on('click', function () {
-                        window.location.href = `/projects/download-pdf/${loc.pk}/`;
+            data.features.forEach(f => {
+                const geom = f.geometry;
+                const props = f.properties;
+                // console.log(loc)
+                let icon = props.is_active_now ? activeIcon : inactiveIcon;
+                
+                if (geom.type === 'Point') {
+                    let marker = L.marker([geom.coordinates[1], geom.coordinates[0]], {icon: icon});
+                    markersLayer.addLayer(marker);
+               
+                    marker.on('mouseover', function () {
+                        this.bindPopup(`
+                            <div style="direction: ltr; text-align: left; font-family: sans-serif; font-size:16px">
+                                <b style="color:#00008B">Company: </b><b style="color:#3b3b3b">${props.company_name}</b> <br>
+                                <b style="color:#00008B">Location: </b><b style="color:#3b3b3b">${props.location}</b><br> 
+                                <b style="color:#00008B">status: </b><b style="color:${props.is_active_now ? 'green' : 'red'}">
+                                    ${props.is_active_now ? 'Active' : 'Inactive'}
+                                </b>            
+                            </div>
+                        `).openPopup();
                     });
-                }
+                    marker.on('mouseout', function () {
+                        this.closePopup();
+                    });
 
+                    // دانلود PDF با کلیک (فقط برای نقاط فعال)
+                    if (props.is_active_now) {
+                        marker.on('click', function () {
+                            window.location.href = `/projects/download-pdf/${props.pk}/`;
+                        });
+                    }
+                }
+                else if (geom.type === 'LineString') {
+                    let latlngs = geom.coordinates.map(c => [c[1], c[0]]);
+                    let polyline = L.polyline(latlngs, { color: props.is_active_now ? 'green' : 'red' });
+                    markersLayer.addLayer(polyline);
+                    polyline.on('mouseover', function () {
+                        this.bindPopup(`
+                            <div style="direction: ltr; text-align: left; font-family: sans-serif; font-size:16px">
+                                <b style="color:#00008B">Company: </b><b style="color:#3b3b3b">${props.company_name}</b> <br>
+                                <b style="color:#00008B">Location: </b><b style="color:#3b3b3b">${props.location}</b><br> 
+                                <b style="color:#00008B">status: </b><b style="color:${props.is_active_now ? 'green' : 'red'}">
+                                    ${props.is_active_now ? 'Active' : 'Inactive'}
+                                </b>            
+                            </div>
+                        `).openPopup();
+                    });
+                    polyline.on('mouseout', function () {
+                        this.closePopup();
+                    });
+                    if (props.is_active_now) {
+                        polyline.on('click', function () {
+                            window.location.href = `/projects/download-pdf/${props.pk}/`;
+                        });
+                    }
+                }
             });
         });
 }
@@ -59,10 +85,14 @@ function loadLocations(url) {
 document.getElementById("active-locations-btn").addEventListener("click", function() {
     loadLocations("/projects/get-active-locations/");
 });
+
 document.getElementById("all-locations-btn").addEventListener("click", function() {
     loadLocations("/projects/get-all-locations/");
 });
 
+document.getElementById("all-routes-btn").addEventListener("click", function() {
+    loadLocations("/projects/get-all-routes/");
+});
 
 
 
@@ -100,46 +130,88 @@ filterForm.addEventListener('submit', function(e) {
         // console.log(lastReportData)
         markersLayer.clearLayers();  // پاک کردن مارکرهای قبلی
 
-        data.forEach(company => {  // برای هر شرکت
-            company.points.forEach(point => {  // برای هر نقطه
-                let lat = point.lat;  // اگر تو API هست، یا باید اضافه بشه
-                let lon = point.lon;  // اگر تو API هست
-                // فرض کنیم lat/lon رو از پروژه داریم، در غیر اینصورت باید در API اضافه کنیم
+        data.forEach(company => {  
+            console.log('company', company)
+            company.detail.forEach(location => {  // برای هر نقطه
+                // console.log('location', location)
+                // const geom = f.geometry;
+                // const props = f.properties;
+                if (location.geometry.type === 'Point'){
+                    let lat = location.geometry.coordinates[1];  // اگر تو API هست، یا باید اضافه بشه
+                    let lon = location.geometry.coordinates[0];  // اگر تو API هست
+                    // فرض کنیم lat/lon رو از پروژه داریم، در غیر اینصورت باید در API اضافه کنیم
+                    // console.log('lat', lat)
+                    // console.log('lon', lon)
+               
+                    let icon = location.is_active_now ? activeIcon : inactiveIcon;
 
-                let icon = point.is_active_now ? activeIcon : inactiveIcon;
+                    let marker = L.marker([lat, lon], {icon: icon});
+                    markersLayer.addLayer(marker);
 
-                let marker = L.marker([lat, lon], {icon: icon});
-                markersLayer.addLayer(marker);
-
-                marker.on('mouseover', function () {
-                    this.bindPopup(`
-                        <div style="direction: ltr; text-align: left; font-family: sans-serif; font-size:16px">
-                            <b style="color:#00008B">Company: </b><b style="color:#3b3b3b">${company.company_name}</b><br>
-                            <b style="color:#00008B">Location: </b><b style="color:#3b3b3b">${point.location_name}</b><br>
-                            
-                             <b style="color:#00008B">start date: </b><b style="color:#3b3b3b">${point.start_date}</b><br> 
-                             <b style="color:#00008B">end date: </b><b style="color:#3b3b3b">
-                                 ${point.is_active_now ? '-' : `${point.end_date}` }
-                             </b><br>
-                             <b style="color:#00008B">status: </b><b style="color:${point.is_active_now ? 'green' : 'red'}">
-                                 ${point.is_active_now ? 'Active' : 'Inactive'}
-                             </b>            
-                         </div>
+                    marker.on('mouseover', function () {
+                        this.bindPopup(`
+                            <div style="direction: ltr; text-align: left; font-family: sans-serif; font-size:16px">
+                                <b style="color:#00008B">Company: </b><b style="color:#3b3b3b">${company.company_name}</b><br>
+                                <b style="color:#00008B">Location: </b><b style="color:#3b3b3b">${location.location_name}</b><br>
+                                
+                                <b style="color:#00008B">start date: </b><b style="color:#3b3b3b">${location.start_date}</b><br> 
+                                <b style="color:#00008B">end date: </b><b style="color:#3b3b3b">
+                                    ${location.is_active_now ? '-' : `${location.end_date}` }
+                                </b><br>
+                                <b style="color:#00008B">status: </b><b style="color:${location.is_active_now ? 'green' : 'red'}">
+                                    ${location.is_active_now ? 'Active' : 'Inactive'}
+                                </b>            
+                            </div>
 
 
-                        </div>
-                    `).openPopup();
-                });
-                marker.on('mouseout', function () {
-                    this.closePopup();
-                });
-
-                // دانلود PDF با کلیک (فقط برای نقاط فعال)
-                if (point.is_active_now) {
-                    marker.on('click', function () {
-                        window.location.href = `/projects/download-pdf/${point.pk}/`;
+                            </div>
+                        `).openPopup();
                     });
+                    marker.on('mouseout', function () {
+                        this.closePopup();
+                    });
+                    
+                    // دانلود PDF با کلیک (فقط برای نقاط فعال)
+                    if (location.is_active_now) {
+                        marker.on('click', function () {
+                            window.location.href = `/projects/download-pdf/${location.pk}/`;
+                        });
+                    }
                 }
+                else if (location.geometry.type === 'LineString'){
+                    let latlngs = location.geometry.coordinates.map(c => [c[1], c[0]]);
+                    console.log('latlngs', latlngs)
+                    let polyline = L.polyline(latlngs, { color: location.is_active_now ? 'green' : 'red' });
+                    markersLayer.addLayer(polyline);
+                    polyline.on('mouseover', function () {
+                        this.bindPopup(`
+                            <div style="direction: ltr; text-align: left; font-family: sans-serif; font-size:16px">
+                                <b style="color:#00008B">Company: </b><b style="color:#3b3b3b">${company.company_name}</b><br>
+                                <b style="color:#00008B">Location: </b><b style="color:#3b3b3b">${location.location_name}</b><br>
+                                
+                                <b style="color:#00008B">start date: </b><b style="color:#3b3b3b">${location.start_date}</b><br> 
+                                <b style="color:#00008B">end date: </b><b style="color:#3b3b3b">
+                                    ${location.is_active_now ? '-' : `${location.end_date}` }
+                                </b><br>
+                                <b style="color:#00008B">status: </b><b style="color:${location.is_active_now ? 'green' : 'red'}">
+                                    ${location.is_active_now ? 'Active' : 'Inactive'}
+                                </b>            
+                            </div>
+
+
+                            </div>
+                        `).openPopup();
+                    });
+                    polyline.on('mouseout', function () {
+                        this.closePopup();
+                    });
+                    if (location.is_active_now) {
+                        polyline.on('click', function () {
+                            window.location.href = `/projects/download-pdf/${location.pk}/`;
+                        });
+                    }
+                }
+                
             });
         });
     });
