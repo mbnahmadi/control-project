@@ -55,7 +55,7 @@ class projectModelAdmin(ExportActionMixin, ExportMixin, NestedModelAdmin):
     form = ProjectAdminForm
     inlines = [FeedBackInline]
     resource_class = ProjectResource
-    list_display = ('company_name', 'location', 'path', 'start_date', 'end_date', 'total_days', 'days_format', 'is_active_now', 'has_feedback')
+    list_display = ('company_name', 'location', 'start_date', 'end_date', 'total_days', 'days_format', 'is_active_now', 'has_feedback')
     list_filter = ('company_name', 'location', HasFeedBackFilter)
     search_fields = ('company_name__name', 'start_date', 'end_date')
     readonly_fields = ('total_cycle', 'total_days', 'is_active_now')

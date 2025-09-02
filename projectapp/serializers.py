@@ -5,14 +5,14 @@ class ActiveLocationsSerializers(serializers.ModelSerializer):
     company_name = serializers.CharField(source='company_name.name')
     class Meta:
         model = ProjectModel
-        fields = ['pk', 'company_name', 'lat', 'lon', 'location', 'is_active_now']
+        fields = ['pk', 'company_name', 'geometry', 'location', 'is_active_now']
 
 
 class AllLocationsSerializers(serializers.ModelSerializer):
     company_name = serializers.CharField(source='company_name.name')
     class Meta:
         model = ProjectModel
-        fields = ['pk', 'company_name', 'lat', 'lon', 'location', 'is_active_now', 'start_date', 'end_date']
+        fields = ['pk', 'company_name', 'geometry', 'location', 'is_active_now', 'start_date', 'end_date']
 
 
 
