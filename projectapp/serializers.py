@@ -2,6 +2,7 @@ from rest_framework import serializers
 from .models import CompanyModel, ProjectModel
 from rest_framework_gis.serializers import GeoFeatureModelSerializer
 from rest_framework_gis.fields import GeometryField
+from feedbackapp.serializers import FeedBackSerializer
 
 class ActiveLocationsSerializers(GeoFeatureModelSerializer):
     company_name = serializers.CharField(source='company_name.name')
@@ -38,3 +39,12 @@ class CompanyPointsActivitySerializer(serializers.Serializer):
     detail = PointActivitySerializer(many=True)
     total_days = serializers.IntegerField()
     total_location = serializers.IntegerField()
+
+
+
+class ProjectFeedBackSerializer(GeoFeatureModelSerializer):
+    feedbacks = FeedBackSerializer(many=True, read_only=True)
+    class Meta:
+        model = ProjectModel
+        geo_field = 'geometry'
+        fields = ['pk', 'company_name', 'geometry', 'location', 'is_active_now', 'start_date', 'end_date', 'feedbacks']

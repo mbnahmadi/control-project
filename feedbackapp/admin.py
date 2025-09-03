@@ -1,10 +1,10 @@
 from django.contrib import admin
 from django.contrib.admin import ModelAdmin
-from .models import FeedBackModel, FeedBackResponseModel, FeedBackAttachment
+from .models import FeedBackModel, FeedBackResponseModel, FeedBackAttachmentModel
 # Register your models here.
 
 class FeedBackAttachmentInline(admin.TabularInline):
-    model = FeedBackAttachment
+    model = FeedBackAttachmentModel
     extra = 1
     min_num = 0
     max_num = 10

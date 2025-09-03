@@ -41,7 +41,7 @@ class FeedBackResponseModel(models.Model):
 
 
 
-class FeedBackAttachment(models.Model):
+class FeedBackAttachmentModel(models.Model):
     feedback = models.ForeignKey(FeedBackModel, on_delete=models.CASCADE, related_name="attachments")
     file = models.FileField(upload_to=feedback_file_path, blank=True, null=True)
     uploaded_at = models.DateTimeField(auto_now_add=True)

@@ -3,7 +3,7 @@ from import_export.admin import ExportMixin, ExportActionMixin
 from import_export import resources, fields
 from .models import CompanyModel, DayFormatModel, ProjectModel
 from .forms import ProjectAdminForm
-from feedbackapp.models import FeedBackModel, FeedBackResponseModel, FeedBackAttachment
+from feedbackapp.models import FeedBackModel, FeedBackResponseModel, FeedBackAttachmentModel
 from rangefilter.filters import DateRangeFilter
 from feedbackapp.filters import HasFeedBackFilter
 
@@ -35,7 +35,7 @@ class ProjectResource(resources.ModelResource):
 
 # --------------- Nested feedback model admin -----------------
 class FeedBackAttachmentInline(NestedStackedInline):
-    model = FeedBackAttachment
+    model = FeedBackAttachmentModel
     extra = 1
     max_num = 10
 
