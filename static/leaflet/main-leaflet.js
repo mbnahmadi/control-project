@@ -20,6 +20,7 @@ function loadLocations(url) {
     fetch(url)
         .then(response => response.json())
         .then(data => {
+            console.log(data)
             markersLayer.clearLayers(); 
 
             data.features.forEach(f => {
@@ -56,22 +57,51 @@ function loadLocations(url) {
                 }
                 else if (geom.type === 'LineString') {
                     let latlngs = geom.coordinates.map(c => [c[1], c[0]]);
+                    
+                    // رسم خط
                     let polyline = L.polyline(latlngs, { color: props.is_active_now ? 'green' : 'red' });
                     markersLayer.addLayer(polyline);
-                    polyline.on('mouseover', function () {
-                        this.bindPopup(`
-                            <div style="direction: ltr; text-align: left; font-family: sans-serif; font-size:16px">
-                                <b style="color:#00008B">Company: </b><b style="color:#3b3b3b">${props.company_name}</b> <br>
-                                <b style="color:#00008B">Location: </b><b style="color:#3b3b3b">${props.location}</b><br> 
-                                <b style="color:#00008B">status: </b><b style="color:${props.is_active_now ? 'green' : 'red'}">
-                                    ${props.is_active_now ? 'Active' : 'Inactive'}
-                                </b>            
-                            </div>
-                        `).openPopup();
+                
+                    // پیدا کردن نقطه وسط (centroid ساده)
+                    let midIndex = Math.floor(latlngs.length / 2);
+                    let centroid = latlngs[midIndex];
+                
+                    // ساخت مارکر روی centroid
+                    let marker = L.marker(centroid, {icon: icon});
+                    markersLayer.addLayer(marker);
+                    
+                    // popup برای خط
+                    let popupContent = `
+                        <div style="direction: ltr; text-align: left; font-family: sans-serif; font-size:16px">
+                            <b style="color:#00008B">Company: </b><b style="color:#3b3b3b">${props.company_name}</b> <br>
+                            <b style="color:#00008B">Location: </b><b style="color:#3b3b3b">${props.location}</b><br> 
+                            <b style="color:#00008B">status: </b><b style="color:${props.is_active_now ? 'green' : 'red'}">
+                                ${props.is_active_now ? 'Active' : 'Inactive'}
+                            </b>            
+                        </div>
+                    `;
+                
+                    polyline.bindPopup(popupContent);
+
+                    // همون popup و event ها رو برای marker هم بزن
+                    marker.bindPopup(popupContent);
+                
+                    // hover روی خط (اختیاری)
+                    polyline.on('mouseover', function (e) {
+                        this.setStyle({ weight: 6 }); // ضخیم‌تر بشه
+                        this.openPopup(e.latlng);
                     });
                     polyline.on('mouseout', function () {
+                        this.setStyle({ weight: 3 });
                         this.closePopup();
                     });
+                    marker.on('mouseover', function () {
+                        this.openPopup();
+                    });
+                    marker.on('mouseout', function () {
+                        this.closePopup();
+                    });
+                
                     if (props.is_active_now) {
                         polyline.on('click', function () {
                             window.location.href = `/projects/download-pdf/${props.pk}/`;
@@ -179,11 +209,11 @@ filterForm.addEventListener('submit', function(e) {
                     }
                 }
                 else if (location.geometry.type === 'LineString'){
-                    let latlngs = location.geometry.coordinates.map(c => [c[1], c[0]]);
-                    console.log('latlngs', latlngs)
-                    let polyline = L.polyline(latlngs, { color: location.is_active_now ? 'green' : 'red' });
-                    markersLayer.addLayer(polyline);
-                    polyline.on('mouseover', function () {
+                    let latlngs2 = location.geometry.coordinates.map(c => [c[1], c[0]]);
+                    // console.log('latlngs', latlngs)
+                    let polyline2 = L.polyline(latlngs2, { color: location.is_active_now ? 'green' : 'red' });
+                    markersLayer.addLayer(polyline2);
+                    polyline2.on('mouseover', function () {
                         this.bindPopup(`
                             <div style="direction: ltr; text-align: left; font-family: sans-serif; font-size:16px">
                                 <b style="color:#00008B">Company: </b><b style="color:#3b3b3b">${company.company_name}</b><br>
@@ -202,11 +232,11 @@ filterForm.addEventListener('submit', function(e) {
                             </div>
                         `).openPopup();
                     });
-                    polyline.on('mouseout', function () {
+                    polyline2.on('mouseout', function () {
                         this.closePopup();
                     });
                     if (location.is_active_now) {
-                        polyline.on('click', function () {
+                        polyline2.on('click', function () {
                             window.location.href = `/projects/download-pdf/${location.pk}/`;
                         });
                     }
@@ -229,19 +259,19 @@ document.getElementById("report").addEventListener("click", function() {
     tbody.innerHTML = "";
   
     lastReportData.forEach(company => {
-      company.points.forEach((point, idx) => {
+      company.detail.forEach((location, idx) => {
         let tr = document.createElement("tr");
         // {idx === 0 ? company.company_name : ""}
         tr.innerHTML = `
           <td class="border px-4 py-2">${company.company_name}</td>
-          <td class="border px-4 py-2">${point.location_name}</td>
-          <td class="border px-4 py-2">${point.start_date}</td>
-          <td class="border px-4 py-2">${point.end_date ?? '-'}</td>
-          <td class="border px-4 py-2">${point.days_format}</td>
-          <td class="border px-4 py-2" style="color:${point.is_active_now ? 'green':'red'}">
-          ${point.is_active_now ? 'Active' : 'Inactive'}
+          <td class="border px-4 py-2">${location.location_name}</td>
+          <td class="border px-4 py-2">${location.start_date}</td>
+          <td class="border px-4 py-2">${location.end_date ?? '-'}</td>
+          <td class="border px-4 py-2">${location.days_format}</td>
+          <td class="border px-4 py-2" style="color:${location.is_active_now ? 'green':'red'}">
+          ${location.is_active_now ? 'Active' : 'Inactive'}
           
-          <td class="border px-4 py-2">${point.active_days}</td>
+          <td class="border px-4 py-2">${location.active_days}</td>
           </td>
         `;
         tbody.appendChild(tr);
