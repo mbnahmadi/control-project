@@ -12,7 +12,7 @@ class FeedBackAttachmentSerializer(serializers.ModelSerializer):
 
     def get_file(self, obj):
         '''
-        http://localhost:8000/media/profiles_image/image.jpg
+        http://localhost:8000/media/feedbacks/image.jpg
         '''
         if obj.file:
             return self.context['request'].build_absolute_uri(obj.file.url)

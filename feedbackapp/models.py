@@ -24,7 +24,7 @@ class FeedBackModel(models.Model):
 
 
 class FeedBackResponseModel(models.Model):
-    feedback = models.OneToOneField(FeedBackModel, on_delete=models.CASCADE, related_name="response", verbose_name=_('feedback'))
+    feedback = models.OneToOneField(FeedBackModel, on_delete=models.CASCADE, related_name="responses", verbose_name=_('feedback'))
     through = models.CharField(verbose_name=_('How to declare?'), help_text=_('like whats app, call, SMS or some thing else.'), max_length=255)
     date = models.DateField(verbose_name=_('date'))
     message = models.TextField()

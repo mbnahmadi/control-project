@@ -38,6 +38,11 @@ class ActiveLocationsManager(models.Manager):
         return super().get_queryset().filter(end_date__isnull=True, end_cycle__isnull=True)
 
 
+class HasFeedBackManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(feedbacks__isnull=False)
+
+
 # =========== Project Model =============
 class ProjectModel(models.Model):
     CYCLES_CHOICES = [
@@ -68,7 +73,7 @@ class ProjectModel(models.Model):
     # -------------------------------- Managers ----------------------------------------
     objects = models.Manager() # اصلی و شامل همه پروژه ها
     active_locations = ActiveLocationsManager() # فقط پروژه‌های بدون end_date و end_cycle
-
+    has_feedback = HasFeedBackManager()
     # --------------------------- Helpers for geometry ---------------------------------
     def is_point(self):
         return self.geometry.geom_type == 'Point'

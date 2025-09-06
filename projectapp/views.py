@@ -1,6 +1,7 @@
 import os
 from datetime import date
 from django.shortcuts import render
+from django.template import context
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.views import View
@@ -99,5 +100,5 @@ class CompanyLocationDateRangeAPIView(APIView):
         result = get_company_points_activity(company_name, location_name, start, end)
         # print(result)
 
-        serializer = CompanyPointsActivitySerializer(result, many=True)
+        serializer = CompanyPointsActivitySerializer(result, many=True, context={'request': request})
         return Response(serializer.data, status=status.HTTP_200_OK)

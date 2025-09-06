@@ -48,7 +48,7 @@ class FeedBackInline(NestedStackedInline):
     model = FeedBackModel
     inlines = [FeedBackAttachmentInline, FeedBackResponseInline]
     extra = 0
-    max_num = 1
+    max_num = 2
 
 @admin.register(ProjectModel)
 class projectModelAdmin(ExportActionMixin, ExportMixin, NestedModelAdmin):
