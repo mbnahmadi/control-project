@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'projectapp.apps.ProjectappConfig',
     'usersapp.apps.UsersappConfig',
     'feedbackapp.apps.FeedbackappConfig',
+    'frontendapp.apps.FrontendappConfig',
     #export data as xlsx (also CSV and json)
     'import_export',
     'rangefilter'

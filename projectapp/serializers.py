@@ -7,18 +7,20 @@ from feedbackapp.serializers import FeedBackSerializer
 
 class ActiveLocationsSerializers(GeoFeatureModelSerializer):
     company_name = serializers.CharField(source='company_name.name')
+    days_format = serializers.CharField(source='days_format.format_name')
     class Meta:
         model = ProjectModel
         geo_field = 'geometry'
-        fields = ['pk', 'company_name', 'geometry', 'location', 'is_active_now']
+        fields = ['pk', 'company_name', 'geometry', 'location', 'is_active_now', 'start_date', 'end_date', 'days_format']
 
 
 class AllLocationsSerializers(GeoFeatureModelSerializer):
     company_name = serializers.CharField(source='company_name.name')
+    days_format = serializers.CharField(source='days_format.format_name')
     class Meta:
         model = ProjectModel
         geo_field = 'geometry'
-        fields = ['pk', 'company_name', 'geometry', 'location', 'is_active_now', 'start_date', 'end_date']
+        fields = ['pk', 'company_name', 'geometry', 'location', 'is_active_now', 'start_date', 'end_date', 'days_format']
 
 
 class PointActivitySerializer(serializers.Serializer):

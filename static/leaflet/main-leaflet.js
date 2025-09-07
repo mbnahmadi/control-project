@@ -38,6 +38,9 @@ function loadLocations(url) {
                             <div style="direction: ltr; text-align: left; font-family: sans-serif; font-size:16px">
                                 <b style="color:#00008B">Company: </b><b style="color:#3b3b3b">${props.company_name}</b> <br>
                                 <b style="color:#00008B">Location: </b><b style="color:#3b3b3b">${props.location}</b><br> 
+                                <b style="color:#00008B">format: </b><b style="color:#3b3b3b">${props.days_format}</b><br> 
+                                <b style="color:#00008B">start: </b><b style="color:#3b3b3b">${props.start_date}</b><br> 
+                                <b style="color:#00008B">end: </b><b style="color:#3b3b3b">${props.end_date}</b><br> 
                                 <b style="color:#00008B">status: </b><b style="color:${props.is_active_now ? 'green' : 'red'}">
                                     ${props.is_active_now ? 'Active' : 'Inactive'}
                                 </b>            
@@ -75,6 +78,9 @@ function loadLocations(url) {
                         <div style="direction: ltr; text-align: left; font-family: sans-serif; font-size:16px">
                             <b style="color:#00008B">Company: </b><b style="color:#3b3b3b">${props.company_name}</b> <br>
                             <b style="color:#00008B">Location: </b><b style="color:#3b3b3b">${props.location}</b><br> 
+                            <b style="color:#00008B">format: </b><b style="color:#3b3b3b">${props.days_format}</b><br> 
+                                <b style="color:#00008B">start: </b><b style="color:#3b3b3b">${props.start_date}</b><br> 
+                                <b style="color:#00008B">end: </b><b style="color:#3b3b3b">${props.end_date}</b><br> 
                             <b style="color:#00008B">status: </b><b style="color:${props.is_active_now ? 'green' : 'red'}">
                                 ${props.is_active_now ? 'Active' : 'Inactive'}
                             </b>            
@@ -183,6 +189,7 @@ filterForm.addEventListener('submit', function(e) {
                             <div style="direction: ltr; text-align: left; font-family: sans-serif; font-size:16px">
                                 <b style="color:#00008B">Company: </b><b style="color:#3b3b3b">${company.company_name}</b><br>
                                 <b style="color:#00008B">Location: </b><b style="color:#3b3b3b">${location.location_name}</b><br>
+                                <b style="color:#00008B">format: </b><b style="color:#3b3b3b">${location.days_format}</b><br>
                                 
                                 <b style="color:#00008B">start date: </b><b style="color:#3b3b3b">${location.start_date}</b><br> 
                                 <b style="color:#00008B">end date: </b><b style="color:#3b3b3b">
@@ -218,6 +225,7 @@ filterForm.addEventListener('submit', function(e) {
                             <div style="direction: ltr; text-align: left; font-family: sans-serif; font-size:16px">
                                 <b style="color:#00008B">Company: </b><b style="color:#3b3b3b">${company.company_name}</b><br>
                                 <b style="color:#00008B">Location: </b><b style="color:#3b3b3b">${location.location_name}</b><br>
+                                <b style="color:#00008B">format: </b><b style="color:#3b3b3b">${location.days_format}</b><br>
                                 
                                 <b style="color:#00008B">start date: </b><b style="color:#3b3b3b">${location.start_date}</b><br> 
                                 <b style="color:#00008B">end date: </b><b style="color:#3b3b3b">
