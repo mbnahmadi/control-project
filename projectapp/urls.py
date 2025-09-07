@@ -28,5 +28,4 @@ urlpatterns = [
 
     path('download-pdf/<int:project_id>/', views.download_latest_pdf, name='download_pdf'),
 
-    path('home/', views.home_view, name='home'),
 ]

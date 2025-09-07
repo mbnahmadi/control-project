@@ -76,8 +76,10 @@ CELERY_TIMEZONE = 'UTC'
 EXPORT_FORMATS = [XLSX]
 AUTH_USER_MODEL = 'usersapp.CustomUserModel'
 AUTHENTICATION_BACKENDS = ["usersapp.backends.UsernameBackend"]
-
-
+# ---------------------------------------------------------
+LOGIN_URL = '/users/login/'
+# LOGIN_REDIRECT_URL
+# -----------------------------------------------------------
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

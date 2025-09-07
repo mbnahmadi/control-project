@@ -8,7 +8,6 @@ from django.views import View
 from .models import CompanyModel, ProjectModel
 from .services.project_service import get_company_points_activity
 from rest_framework import status
-from django.contrib.auth.decorators import login_required
 from django.http import FileResponse, HttpResponseNotFound
 from .serializers import ActiveLocationsSerializers, CompanyPointsActivitySerializer, AllLocationsSerializers
 from django.db.models import CharField, Func
@@ -18,10 +17,6 @@ class GeometryType(Func):
     output_field = CharField()
 
 # Create your views here.
-@login_required
-def home_view(request):
-    return render(request, 'projectapp/home.html')
-
 
 class GetActiveLocations(APIView):
     '''
