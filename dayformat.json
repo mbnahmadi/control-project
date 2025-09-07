@@ -1,13 +1,6 @@
 [
 {
   "model": "projectapp.dayformatmodel",
-  "pk": 1,
-  "fields": {
-    "format_name": "10"
-  }
-},
-{
-  "model": "projectapp.dayformatmodel",
   "pk": 2,
   "fields": {
     "format_name": "10 days"

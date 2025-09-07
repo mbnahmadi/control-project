@@ -16,6 +16,7 @@
     "total_cycle": 14,
     "location": "S13-R97",
     "days_format": 2,
+    "is_active_now": false,
     "created_at": "2025-07-20T16:41:17.271Z",
     "updated_at": "2025-07-20T16:41:17.271Z"
   }
@@ -37,6 +38,7 @@
     "total_cycle": 10,
     "location": "SPD16",
     "days_format": 4,
+    "is_active_now": false,
     "created_at": "2025-07-20T16:51:00.072Z",
     "updated_at": "2025-07-21T11:56:51.502Z"
   }
@@ -58,6 +60,7 @@
     "total_cycle": 20,
     "location": "Eilam",
     "days_format": 2,
+    "is_active_now": false,
     "created_at": "2025-07-22T08:41:15.822Z",
     "updated_at": "2025-08-14T10:43:55.985Z"
   }
@@ -79,6 +82,7 @@
     "total_cycle": 36,
     "location": "Eilam",
     "days_format": 2,
+    "is_active_now": false,
     "created_at": "2025-07-22T08:44:09.923Z",
     "updated_at": "2025-08-14T09:13:46.967Z"
   }
@@ -100,6 +104,7 @@
     "total_cycle": 6,
     "location": "SPGF",
     "days_format": 2,
+    "is_active_now": false,
     "created_at": "2025-07-27T04:09:13.160Z",
     "updated_at": "2025-07-29T12:47:08.383Z"
   }
@@ -111,7 +116,7 @@
     "company_name": 3,
     "lat": 25.938,
     "lon": 52.9059,
-    "description": "برای 20 روز",
+    "description": "",
     "image_description": "pic_files/Screenshot_2025-07-29_140140.png",
     "start_date": "2025-07-30",
     "end_date": null,
@@ -121,8 +126,9 @@
     "total_cycle": 0,
     "location": "Reshadat",
     "days_format": 2,
+    "is_active_now": true,
     "created_at": "2025-07-29T10:35:07.864Z",
-    "updated_at": "2025-08-14T09:09:33.684Z"
+    "updated_at": "2025-09-07T06:36:50.641Z"
   }
 },
 {
@@ -142,6 +148,7 @@
     "total_cycle": 16,
     "location": "SPD23",
     "days_format": 2,
+    "is_active_now": false,
     "created_at": "2025-07-30T13:55:57.699Z",
     "updated_at": "2025-08-14T09:15:29.801Z"
   }
@@ -163,6 +170,7 @@
     "total_cycle": 24,
     "location": "SPD23",
     "days_format": 4,
+    "is_active_now": false,
     "created_at": "2025-07-30T13:56:19.967Z",
     "updated_at": "2025-08-14T09:15:17.850Z"
   }
@@ -184,8 +192,9 @@
     "total_cycle": 0,
     "location": "NPP2 Platform",
     "days_format": 4,
+    "is_active_now": true,
     "created_at": "2025-08-06T06:04:00.054Z",
-    "updated_at": "2025-08-14T09:34:57.577Z"
+    "updated_at": "2025-08-19T11:56:31.579Z"
   }
 },
 {
@@ -205,8 +214,9 @@
     "total_cycle": 2,
     "location": "Eilam",
     "days_format": 2,
+    "is_active_now": false,
     "created_at": "2025-08-11T20:08:27.406Z",
-    "updated_at": "2025-08-14T09:14:02.733Z"
+    "updated_at": "2025-08-19T11:56:24.572Z"
   }
 },
 {
@@ -226,8 +236,9 @@
     "total_cycle": 0,
     "location": "Sakoo",
     "days_format": 2,
+    "is_active_now": true,
     "created_at": "2025-08-14T09:17:39.636Z",
-    "updated_at": "2025-08-14T09:17:39.637Z"
+    "updated_at": "2025-08-19T11:56:19.162Z"
   }
 },
 {
@@ -247,8 +258,9 @@
     "total_cycle": 0,
     "location": "Reshadat",
     "days_format": 4,
+    "is_active_now": true,
     "created_at": "2025-08-14T09:18:48.761Z",
-    "updated_at": "2025-08-14T17:38:27.384Z"
+    "updated_at": "2025-08-19T11:56:13.094Z"
   }
 },
 {
@@ -268,8 +280,9 @@
     "total_cycle": 0,
     "location": "South Pars",
     "days_format": 4,
+    "is_active_now": true,
     "created_at": "2025-08-14T09:19:21.922Z",
-    "updated_at": "2025-08-14T17:40:05.958Z"
+    "updated_at": "2025-08-19T11:56:07.681Z"
   }
 },
 {
@@ -289,8 +302,9 @@
     "total_cycle": 0,
     "location": "Boushehr",
     "days_format": 2,
+    "is_active_now": true,
     "created_at": "2025-08-14T09:21:54.651Z",
-    "updated_at": "2025-08-14T11:07:35.974Z"
+    "updated_at": "2025-08-19T11:56:02.503Z"
   }
 },
 {
@@ -310,8 +324,9 @@
     "total_cycle": 0,
     "location": "Dorood",
     "days_format": 2,
+    "is_active_now": true,
     "created_at": "2025-08-14T09:22:58.609Z",
-    "updated_at": "2025-08-14T10:59:43.591Z"
+    "updated_at": "2025-08-19T11:55:55.857Z"
   }
 },
 {
@@ -331,8 +346,9 @@
     "total_cycle": 0,
     "location": "Kish_A",
     "days_format": 2,
+    "is_active_now": true,
     "created_at": "2025-08-14T09:24:25.856Z",
-    "updated_at": "2025-08-14T11:07:09.337Z"
+    "updated_at": "2025-08-19T11:55:50.660Z"
   }
 },
 {
@@ -352,8 +368,9 @@
     "total_cycle": 0,
     "location": "SPD15",
     "days_format": 2,
+    "is_active_now": true,
     "created_at": "2025-08-14T09:32:10.939Z",
-    "updated_at": "2025-08-14T10:51:46.679Z"
+    "updated_at": "2025-08-19T11:55:44.699Z"
   }
 },
 {
@@ -373,8 +390,9 @@
     "total_cycle": 0,
     "location": "Phase19",
     "days_format": 4,
+    "is_active_now": true,
     "created_at": "2025-08-14T09:33:26.829Z",
-    "updated_at": "2025-08-14T10:09:21.591Z"
+    "updated_at": "2025-08-19T11:55:38.638Z"
   }
 },
 {
@@ -394,8 +412,9 @@
     "total_cycle": 0,
     "location": "Bushehr",
     "days_format": 4,
+    "is_active_now": true,
     "created_at": "2025-08-14T09:34:01.075Z",
-    "updated_at": "2025-08-14T11:11:44.845Z"
+    "updated_at": "2025-08-19T11:55:33.439Z"
   }
 },
 {
@@ -415,8 +434,9 @@
     "total_cycle": 0,
     "location": "Roudsar",
     "days_format": 4,
+    "is_active_now": true,
     "created_at": "2025-08-14T09:35:28.375Z",
-    "updated_at": "2025-08-14T11:09:05.731Z"
+    "updated_at": "2025-08-19T11:55:27.589Z"
   }
 },
 {
@@ -436,8 +456,9 @@
     "total_cycle": 0,
     "location": "SouthPars",
     "days_format": 2,
+    "is_active_now": true,
     "created_at": "2025-08-14T09:38:51.566Z",
-    "updated_at": "2025-08-14T17:06:08.604Z"
+    "updated_at": "2025-08-19T11:55:22.222Z"
   }
 },
 {
@@ -457,8 +478,9 @@
     "total_cycle": 0,
     "location": "Mid Way SouthPars",
     "days_format": 2,
+    "is_active_now": true,
     "created_at": "2025-08-14T09:41:03.044Z",
-    "updated_at": "2025-08-14T17:06:51.085Z"
+    "updated_at": "2025-08-19T11:55:16.704Z"
   }
 },
 {
@@ -478,8 +500,9 @@
     "total_cycle": 0,
     "location": "Kish",
     "days_format": 2,
+    "is_active_now": true,
     "created_at": "2025-08-14T09:41:28.716Z",
-    "updated_at": "2025-08-14T17:06:27.865Z"
+    "updated_at": "2025-08-19T11:55:11.419Z"
   }
 },
 {
@@ -499,8 +522,9 @@
     "total_cycle": 0,
     "location": "NASR",
     "days_format": 2,
+    "is_active_now": true,
     "created_at": "2025-08-14T09:45:09.850Z",
-    "updated_at": "2025-08-14T10:01:05.898Z"
+    "updated_at": "2025-08-19T11:55:05.566Z"
   }
 },
 {
@@ -520,8 +544,9 @@
     "total_cycle": 0,
     "location": "Asaluyeh Anchorage",
     "days_format": 2,
+    "is_active_now": true,
     "created_at": "2025-08-14T09:45:53.946Z",
-    "updated_at": "2025-08-14T17:12:53.884Z"
+    "updated_at": "2025-08-19T11:54:59.440Z"
   }
 },
 {
@@ -541,8 +566,9 @@
     "total_cycle": 0,
     "location": "Mid Way SouthPars",
     "days_format": 2,
+    "is_active_now": true,
     "created_at": "2025-08-14T09:46:34.171Z",
-    "updated_at": "2025-08-14T17:12:35.187Z"
+    "updated_at": "2025-08-19T11:54:54.369Z"
   }
 },
 {
@@ -562,8 +588,9 @@
     "total_cycle": 0,
     "location": "SPQ1",
     "days_format": 2,
+    "is_active_now": true,
     "created_at": "2025-08-14T09:46:58.939Z",
-    "updated_at": "2025-08-14T17:31:56.799Z"
+    "updated_at": "2025-08-19T11:54:49.397Z"
   }
 },
 {
@@ -583,8 +610,9 @@
     "total_cycle": 0,
     "location": "Phase14",
     "days_format": 4,
+    "is_active_now": true,
     "created_at": "2025-08-14T09:48:00.111Z",
-    "updated_at": "2025-08-14T09:52:17.332Z"
+    "updated_at": "2025-08-19T11:54:44.446Z"
   }
 },
 {
@@ -604,8 +632,9 @@
     "total_cycle": 0,
     "location": "SPD03",
     "days_format": 4,
+    "is_active_now": true,
     "created_at": "2025-08-14T09:49:51.489Z",
-    "updated_at": "2025-08-14T09:49:51.489Z"
+    "updated_at": "2025-08-19T11:54:36.796Z"
   }
 },
 {
@@ -625,8 +654,9 @@
     "total_cycle": 0,
     "location": "Siri",
     "days_format": 3,
+    "is_active_now": true,
     "created_at": "2025-08-14T16:26:30.303Z",
-    "updated_at": "2025-08-14T16:26:30.304Z"
+    "updated_at": "2025-08-19T11:54:31.074Z"
   }
 },
 {
@@ -646,8 +676,9 @@
     "total_cycle": 0,
     "location": "Qeshm",
     "days_format": 3,
+    "is_active_now": true,
     "created_at": "2025-08-14T16:30:21.231Z",
-    "updated_at": "2025-08-14T16:30:21.231Z"
+    "updated_at": "2025-08-19T11:54:24.838Z"
   }
 },
 {
@@ -667,8 +698,9 @@
     "total_cycle": 0,
     "location": "Kish",
     "days_format": 3,
+    "is_active_now": true,
     "created_at": "2025-08-14T16:31:16.062Z",
-    "updated_at": "2025-08-14T16:31:16.062Z"
+    "updated_at": "2025-08-19T11:54:18.993Z"
   }
 },
 {
@@ -688,8 +720,9 @@
     "total_cycle": 0,
     "location": "Lavan",
     "days_format": 3,
+    "is_active_now": true,
     "created_at": "2025-08-14T16:32:08.153Z",
-    "updated_at": "2025-08-14T16:32:08.153Z"
+    "updated_at": "2025-08-19T11:54:14.473Z"
   }
 },
 {
@@ -709,8 +742,9 @@
     "total_cycle": 0,
     "location": "Khark",
     "days_format": 3,
+    "is_active_now": true,
     "created_at": "2025-08-14T16:32:50.661Z",
-    "updated_at": "2025-08-14T16:32:50.661Z"
+    "updated_at": "2025-08-19T11:54:09.684Z"
   }
 },
 {
@@ -730,8 +764,9 @@
     "total_cycle": 0,
     "location": "Bahregan",
     "days_format": 3,
+    "is_active_now": true,
     "created_at": "2025-08-14T16:33:28.027Z",
-    "updated_at": "2025-08-14T16:33:28.027Z"
+    "updated_at": "2025-08-19T11:54:04.972Z"
   }
 },
 {
@@ -751,8 +786,9 @@
     "total_cycle": 0,
     "location": "FPSO CYRUS",
     "days_format": 3,
+    "is_active_now": true,
     "created_at": "2025-08-14T16:36:46.902Z",
-    "updated_at": "2025-08-14T16:36:46.902Z"
+    "updated_at": "2025-08-19T11:53:59.939Z"
   }
 },
 {
@@ -772,8 +808,9 @@
     "total_cycle": 0,
     "location": "Froozan",
     "days_format": 3,
+    "is_active_now": true,
     "created_at": "2025-08-14T16:38:43.096Z",
-    "updated_at": "2025-08-14T16:38:43.096Z"
+    "updated_at": "2025-08-19T11:53:54.950Z"
   }
 },
 {
@@ -793,8 +830,9 @@
     "total_cycle": 0,
     "location": "Reshadat",
     "days_format": 3,
+    "is_active_now": true,
     "created_at": "2025-08-14T16:40:16.428Z",
-    "updated_at": "2025-08-14T16:40:16.428Z"
+    "updated_at": "2025-08-19T11:53:48.965Z"
   }
 },
 {
@@ -814,8 +852,9 @@
     "total_cycle": 0,
     "location": "Aboozar",
     "days_format": 3,
+    "is_active_now": true,
     "created_at": "2025-08-14T16:44:44.153Z",
-    "updated_at": "2025-08-14T16:44:44.153Z"
+    "updated_at": "2025-08-19T11:53:43.848Z"
   }
 },
 {
@@ -835,8 +874,9 @@
     "total_cycle": 0,
     "location": "Soroush",
     "days_format": 3,
+    "is_active_now": true,
     "created_at": "2025-08-14T16:46:40.273Z",
-    "updated_at": "2025-08-14T16:46:40.273Z"
+    "updated_at": "2025-08-19T11:53:38.724Z"
   }
 },
 {
@@ -854,10 +894,11 @@
     "start_cycle": "2",
     "end_cycle": null,
     "total_cycle": 0,
-    "location": "Lavan(Route)",
+    "location": "Lavan",
     "days_format": 5,
+    "is_active_now": true,
     "created_at": "2025-08-14T16:50:41.499Z",
-    "updated_at": "2025-08-14T16:50:41.499Z"
+    "updated_at": "2025-08-20T09:33:33.598Z"
   }
 },
 {
@@ -877,8 +918,9 @@
     "total_cycle": 0,
     "location": "Mid Way Salman (Route)",
     "days_format": 5,
+    "is_active_now": true,
     "created_at": "2025-08-14T16:51:18.650Z",
-    "updated_at": "2025-08-14T16:51:18.650Z"
+    "updated_at": "2025-08-19T11:53:28.094Z"
   }
 },
 {
@@ -898,8 +940,9 @@
     "total_cycle": 0,
     "location": "Salman (Route)",
     "days_format": 5,
+    "is_active_now": true,
     "created_at": "2025-08-14T16:52:02.185Z",
-    "updated_at": "2025-08-14T16:52:02.185Z"
+    "updated_at": "2025-08-19T11:53:23.310Z"
   }
 },
 {
@@ -912,15 +955,104 @@
     "description": "no more",
     "image_description": "pic_files/یونس.png",
     "start_date": "2025-08-18",
+    "end_date": "2025-08-21",
+    "total_days": 4,
+    "start_cycle": "1",
+    "end_cycle": "2",
+    "total_cycle": 8,
+    "location": "Eilam",
+    "days_format": 2,
+    "is_active_now": false,
+    "created_at": "2025-08-18T06:01:12.097Z",
+    "updated_at": "2025-08-21T07:54:03.193Z"
+  }
+},
+{
+  "model": "projectapp.projectmodel",
+  "pk": 47,
+  "fields": {
+    "company_name": 9,
+    "lat": 27.45,
+    "lon": 52.45,
+    "description": "no more",
+    "image_description": "",
+    "start_date": "2025-08-23",
     "end_date": null,
     "total_days": 0,
     "start_cycle": "1",
     "end_cycle": null,
     "total_cycle": 0,
-    "location": "Eilam",
+    "location": "Asaluyeh",
+    "days_format": 4,
+    "is_active_now": true,
+    "created_at": "2025-08-20T06:17:37.453Z",
+    "updated_at": "2025-08-20T06:17:37.453Z"
+  }
+},
+{
+  "model": "projectapp.projectmodel",
+  "pk": 48,
+  "fields": {
+    "company_name": 1,
+    "lat": 29.295933,
+    "lon": 49.55095,
+    "description": "",
+    "image_description": "",
+    "start_date": "2025-08-23",
+    "end_date": "2025-08-26",
+    "total_days": 4,
+    "start_cycle": "1",
+    "end_cycle": "2",
+    "total_cycle": 8,
+    "location": "Abouzar",
     "days_format": 2,
-    "created_at": "2025-08-18T06:01:12.097Z",
-    "updated_at": "2025-08-18T06:54:02.326Z"
+    "is_active_now": false,
+    "created_at": "2025-08-23T08:26:27.759Z",
+    "updated_at": "2025-08-26T12:26:43.670Z"
+  }
+},
+{
+  "model": "projectapp.projectmodel",
+  "pk": 52,
+  "fields": {
+    "company_name": 1,
+    "lat": 26.8452,
+    "lon": 52.127,
+    "description": "",
+    "image_description": "",
+    "start_date": "2025-08-27",
+    "end_date": "2025-08-31",
+    "total_days": 5,
+    "start_cycle": "1",
+    "end_cycle": "2",
+    "total_cycle": 10,
+    "location": "SPD6",
+    "days_format": 2,
+    "is_active_now": false,
+    "created_at": "2025-08-26T12:29:05.784Z",
+    "updated_at": "2025-08-31T15:32:45.507Z"
+  }
+},
+{
+  "model": "projectapp.projectmodel",
+  "pk": 53,
+  "fields": {
+    "company_name": 3,
+    "lat": 28.96,
+    "lon": 50.738,
+    "description": "",
+    "image_description": "pic_files/بوشهر.png",
+    "start_date": "2025-08-27",
+    "end_date": "2025-09-01",
+    "total_days": 6,
+    "start_cycle": "1",
+    "end_cycle": "2",
+    "total_cycle": 12,
+    "location": "Bushehr",
+    "days_format": 4,
+    "is_active_now": false,
+    "created_at": "2025-08-26T12:45:04.511Z",
+    "updated_at": "2025-09-01T11:55:47.515Z"
   }
 }
 ]
