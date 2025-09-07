@@ -10,18 +10,85 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css" />
-    <title>ژرف دریا پژوهش پارس</title>
+    <title>OR Management System</title>
 </head>
 <body>
     <div class="container">
         <!-- Sidebar -->
         <div class="sidebar">
-            
-            {% comment %} <h2></h2> {% endcomment %}
+
+
+          <!-- Quick Access -->
+          <div class="section" onclick="toggleSection(this)">
+            <span>Quick Access</span>
+            <span class="arrow">&#9654;</span> <!-- right arrow -->
+          </div>
+          <div class="content">
             <button id="all-locations-btn">all locations</button>
             <button id="active-locations-btn">active locations / routes</button>
             <button id="all-routes-btn">all routes</button>
+            <button id="has-feedback-locations-btn">feedback</button>
+          </div>
+
+
+          <!-- Companies Activity -->
+          <div class="section" onclick="toggleSection(this)">
+            <span>Companies Activity</span>
+            <span class="arrow">&#9654;</span> 
+          </div>
+          <div class="content">
             <form id="filter-form">
+              <label for="company">Company name:</label>
+              <input type="text" id="company" name="company_name">
+    
+              <label for="location">Location:</label>
+              <input type="text" id="location" name="location">
+    
+              <label for="start-date">Start date:</label>
+              <input type="date" id="start-date" name="start_date">
+    
+              <label for="end-date">End date:</label>
+              <input type="date" id="end-date" name="end_date">
+    
+              <div class="btn">
+                <button id="submit" type="submit">Submit</button>
+                <button id="report" type="button">Report</button>
+              </div>
+            </form>
+          </div>
+    
+
+          <!-- Companies FeedBack -->
+          <div class="section" onclick="toggleSection(this)">
+            <span>Companies FeedBack</span>
+            <span class="arrow">&#9654;</span> <!-- right arrow -->
+          </div>
+          <div class="content">
+            <form id="filter-form">
+              <label for="company">Company name:</label>
+              <input type="text" id="company" name="company_name">
+    
+              <label for="location">Location:</label>
+              <input type="text" id="location" name="location">
+    
+              <label for="start-date">Start date:</label>
+              <input type="date" id="start-date" name="start_date">
+    
+              <label for="end-date">End date:</label>
+              <input type="date" id="end-date" name="end_date">
+    
+              <div class="btn">
+                <button id="submit" type="submit">Submit</button>
+                <button id="report" type="button">Report</button>
+              </div>
+            </form>
+          </div>
+            
+            
+            {% comment %} <button id="all-locations-btn">all locations</button>
+            <button id="active-locations-btn">active locations / routes</button>
+            <button id="all-routes-btn">all routes</button> {% endcomment %}
+            {% comment %} <form id="filter-form">
                 <label for="company">company name:</label>
                 <input type="text" id="company" name="company_name">
     
@@ -38,10 +105,9 @@
                     <button id="report">get report</button>
                 </div>
             </form>
-            {% comment %} <div id="report-table"></div> {% endcomment %}
             <div style="margin-top:150px;">
                 <button class="logout" ><a  href="{% url 'logout' %}">Logout</a></button>
-            </div>
+            </div> {% endcomment %}
             
         </div>
 
@@ -80,6 +146,7 @@
  
     
     <script src="{% static 'leaflet/leaflet.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
     <script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
     <script src="{% static 'leaflet/main-leaflet.js' %}"></script>
 
