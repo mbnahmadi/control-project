@@ -53,7 +53,7 @@ class ProjectModel(models.Model):
     geometry = gis_models.GeometryField(verbose_name=_('Geometry'), srid=4326, spatial_index=True, blank=False, null=False, 
                                         help_text=_('format Input: Point → Lat,Lon | Line → Lat1,Lon1; Lat2,Lon2; Lat3,Lon3; ...')) # این میتونه هم لاین باشه هم پوینت
     description = models.TextField(verbose_name=_('Description'), null=True, blank=True)
-    image_description = models.FileField(upload_to=location_file_path, verbose_name=_('Image'), null=True, blank=True)
+    attachment = models.FileField(upload_to=location_file_path, verbose_name=_('attachment'), null=True, blank=True)
     start_date = models.DateField(verbose_name=_('Start dateTime'))
     end_date = models.DateField(verbose_name=_('End dateTime'), null=True, blank=True)
     total_days = models.PositiveIntegerField(verbose_name=_('Total number of days'), default=0, editable=False)

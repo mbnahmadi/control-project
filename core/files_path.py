@@ -33,7 +33,7 @@ def location_file_path(instance, filename):
     location_name = slugify(instance.location)
     # مسیر مثلا: profile_images/2025/08/10/user_23/filename.jpg
     return os.path.join(
-        "projects/",
+        "projects_attachment/",
         f"{company_name}",
         f"{location_name}",
         str(today.year),
