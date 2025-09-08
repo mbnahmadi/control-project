@@ -1,8 +1,15 @@
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
 from .forms import LoginForm
-from django.contrib.auth import logout
+from django.contrib.auth import get_user_model, logout
 from django.shortcuts import redirect
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from django.utils.timesince import timesince
+from django.utils.timezone import now
+
+
+User = get_user_model()
 
 class CustomLoginView(LoginView):
     authentication_form = LoginForm
@@ -16,3 +23,17 @@ class CustomLoginView(LoginView):
 def LogoutView(request):
     logout(request)
     return redirect("login")
+
+
+class LastLoginView(APIView):
+    def get(self, request):
+        try:
+            user = request.user
+            last_login = user.last_login
+            return Response({
+                'username': user.username,
+                'last_login': last_login.strftime("%Y-%m-%d %H:%M:%S"),
+                'last_login_human': timesince(last_login, now()) + " ago"
+            })
+        except Exception as e:
+            return Response({'error': str(e)})

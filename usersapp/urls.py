@@ -21,4 +21,5 @@ from . import views
 urlpatterns = [
     path("login/", views.CustomLoginView.as_view(), name="login"),
     path("logout/", views.LogoutView, name="logout"),
+    path("last-login/", views.LastLoginView.as_view(), name="last-login"),
 ]
