@@ -28,6 +28,17 @@ class DayFormatModel(models.Model):
     def __str__(self) -> str:
         return self.format_name
 
+
+class ProjectFormatModel(models.Model):
+    name = models.CharField(verbose_name=_('format name'), max_length=255, unique=True)
+
+    class Meta:
+        verbose_name = _('project format')
+        verbose_name_plural = _('project formats')
+
+    def __str__(self) -> str:
+        return self.name
+
 # =========================================================
 
 # =================== Manager =============================
@@ -49,6 +60,7 @@ class ProjectModel(models.Model):
         ('1', _('cycle 1')),
         ('2', _('cycle 2'))
     ]
+    project_format = models.ForeignKey('ProjectFormatModel', on_delete=models.CASCADE, related_name='project_format', default=1)
     company_name = models.ForeignKey('CompanyModel', on_delete=models.CASCADE, related_name='project')
     geometry = gis_models.GeometryField(verbose_name=_('Geometry'), srid=4326, spatial_index=True, blank=False, null=False, 
                                         help_text=_('format Input: Point → Lat,Lon | Line → Lat1,Lon1; Lat2,Lon2; Lat3,Lon3; ...')) # این میتونه هم لاین باشه هم پوینت
@@ -61,7 +73,7 @@ class ProjectModel(models.Model):
     end_cycle = models.CharField(verbose_name=_('End cycle'), choices=CYCLES_CHOICES, max_length=5,null=True, blank=True)
     total_cycle = models.PositiveIntegerField(verbose_name=_('Total cycle'), default=0, editable=False)
     location = models.CharField(verbose_name=_('Location'), max_length=255)
-    days_format = models.ForeignKey('DayFormatModel', on_delete=models.CASCADE, related_name='format')
+    days_format = models.ForeignKey('DayFormatModel', on_delete=models.CASCADE, related_name='days_format')
     is_active_now = models.BooleanField(verbose_name=_('is_active_now'), default=False, editable=False, db_index=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

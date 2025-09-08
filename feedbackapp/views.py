@@ -4,12 +4,9 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import FeedBackAttachmentModel, FeedBackModel, FeedBackResponseModel
-from .serializers import FeedBackAttachmentSerializer
-from projectapp.serializers import CompanyFeedbackSerializer
-from projectapp.serializers import ProjectFeedBackSerializer
+from .serializers import FeedBackAttachmentSerializer, ProjectFeedBackSerializer, CompanyFeedbackSerializer
 from projectapp.models import ProjectModel
 from rest_framework import status
-from django.contrib.auth.decorators import login_required
 from django.http import FileResponse, HttpResponseNotFound
 from .services.feedback_service import get_company_feedback_activity
 

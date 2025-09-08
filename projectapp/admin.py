@@ -1,7 +1,7 @@
 from django.contrib import admin
 from import_export.admin import ExportMixin, ExportActionMixin
 from import_export import resources, fields
-from .models import CompanyModel, DayFormatModel, ProjectModel
+from .models import CompanyModel, DayFormatModel, ProjectModel, ProjectFormatModel
 from .forms import ProjectAdminForm
 from feedbackapp.models import FeedBackModel, FeedBackResponseModel, FeedBackAttachmentModel
 from rangefilter.filters import DateRangeFilter
@@ -75,3 +75,7 @@ class CompanyModelAdmin(admin.ModelAdmin):
 class DayFormatModelAdmin(admin.ModelAdmin):
     list_display = ('format_name',) 
 
+# =========== project format model admin ===========
+@admin.register(ProjectFormatModel)
+class ProjectFormatModelAdmin(admin.ModelAdmin):
+    list_display = ('name',) 
