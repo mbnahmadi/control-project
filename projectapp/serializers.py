@@ -1,3 +1,4 @@
+from pydoc import source_synopsis
 from rest_framework import serializers
 # from feedbackapp.serializers import FeedBackAttachmentSerializer
 from .models import CompanyModel, ProjectModel
@@ -8,34 +9,38 @@ from feedbackapp.serializers import FeedBackSerializer
 class ActiveLocationsSerializers(GeoFeatureModelSerializer):
     company_name = serializers.CharField(source='company_name.name')
     days_format = serializers.CharField(source='days_format.format_name')
+    project_format = serializers.CharField(source='project_format.name')
     class Meta:
         model = ProjectModel
         geo_field = 'geometry'
-        fields = ['pk', 'company_name', 'geometry', 'location', 'is_active_now', 'start_date', 'end_date', 'days_format']
+        fields = ['pk', 'company_name', 'project_format', 'geometry', 'location', 'is_active_now', 'start_date', 'end_date', 'days_format']
 
 
 class AllLocationsSerializers(GeoFeatureModelSerializer):
     company_name = serializers.CharField(source='company_name.name')
     days_format = serializers.CharField(source='days_format.format_name')
+    project_format = serializers.CharField(source='project_format.name')
     class Meta:
         model = ProjectModel
         geo_field = 'geometry'
-        fields = ['pk', 'company_name', 'geometry', 'location', 'is_active_now', 'start_date', 'end_date', 'days_format']
+        fields = ['pk', 'company_name', 'project_format', 'geometry', 'location', 'is_active_now', 'start_date', 'end_date', 'days_format']
 
 
 class AllLocationsHasFeedbackSerializers(GeoFeatureModelSerializer):
     company_name = serializers.CharField(source='company_name.name')
     days_format = serializers.CharField(source='days_format.format_name')
+    project_format = serializers.CharField(source='project_format.name')
     has_feedback = serializers.BooleanField(default=True)
     class Meta:
         model = ProjectModel
         geo_field = 'geometry'
-        fields = ['pk', 'company_name', 'geometry', 'location', 'is_active_now', 'start_date', 'end_date', 'days_format', 'has_feedback']
+        fields = ['pk', 'company_name', 'project_format', 'geometry', 'location', 'is_active_now', 'start_date', 'end_date', 'days_format', 'has_feedback']
 
 
 class PointActivitySerializer(serializers.Serializer):
     pk = serializers.IntegerField()
     location_name = serializers.CharField()
+    project_format = serializers.CharField()
     geometry = GeometryField()
     # lat = serializers.FloatField()
     # lon = serializers.FloatField()

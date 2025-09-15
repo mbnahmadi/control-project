@@ -50,10 +50,11 @@ class ProjectFeedBackSerializer(serializers.ModelSerializer):
     feedbacks = FeedBackModelSerializer(many=True, read_only=True)
     company_name = serializers.CharField(source='company_name.name')
     days_format = serializers.CharField(source='days_format.format_name')
+    project_format = serializers.CharField(source='project_format.name')
     class Meta:
         model = ProjectModel
         geo_field = 'geometry'
-        fields = ['pk', 'company_name', 'geometry', 'location', 'is_active_now', 'days_format', 'start_date', 'end_date', 'feedbacks']
+        fields = ['pk', 'company_name', 'project_format', 'geometry', 'location', 'is_active_now', 'days_format', 'start_date', 'end_date', 'feedbacks']
 
 
 class FeedBackAttachmentSerializer(serializers.Serializer):
@@ -101,6 +102,7 @@ class FeedBackSerializer(serializers.Serializer):
 class PointFeedBackSerializer(serializers.Serializer):
     pk = serializers.IntegerField()
     location_name = serializers.CharField()
+    project_format = serializers.CharField()
     geometry = GeometryField()
     start_date = serializers.CharField()
     end_date = serializers.CharField()

@@ -77,6 +77,7 @@ def get_company_feedback_activity(company_name=None, location_name=None, start_r
             })
 
         companies[company]["detail"].append({
+            "project_format": proj.project_format.name,
             "location_name": proj.location,
             "pk": proj.pk,
             "geometry": proj.geometry,

@@ -35,7 +35,7 @@ filterForm.addEventListener('submit', function(e) {
                         <div style="direction: ltr; text-align: left; font-family: sans-serif; font-size:16px">
                             <b style="color:#00008B">Company: </b><b style="color:#3b3b3b">${company.company_name}</b><br>
                             <b style="color:#00008B">Location: </b><b style="color:#3b3b3b">${location.location_name}</b><br>
-                            <b style="color:#00008B">format: </b><b style="color:#3b3b3b">${location.days_format}</b><br>
+                            <b style="color:#00008B">format: </b><b style="color:#3b3b3b">${location.days_format} - ${location.project_format}</b><br>
                             <b style="color:#00008B">start date: </b><b style="color:#3b3b3b">${location.start_date}</b><br> 
                             <b style="color:#00008B">end date: </b><b style="color:#3b3b3b">
                                 ${location.is_active_now ? '-' : `${location.end_date}` }
@@ -66,7 +66,7 @@ filterForm.addEventListener('submit', function(e) {
                         <div style="direction: ltr; text-align: left; font-family: sans-serif; font-size:16px">
                             <b style="color:#00008B">Company: </b><b style="color:#3b3b3b">${company.company_name}</b><br>
                             <b style="color:#00008B">Location: </b><b style="color:#3b3b3b">${location.location_name}</b><br>
-                            <b style="color:#00008B">format: </b><b style="color:#3b3b3b">${location.days_format}</b><br>
+                            <b style="color:#00008B">format: </b><b style="color:#3b3b3b">${location.days_format} - ${location.project_format}</b><br>
                             <b style="color:#00008B">start date: </b><b style="color:#3b3b3b">${location.start_date}</b><br> 
                             <b style="color:#00008B">end date: </b><b style="color:#3b3b3b">
                                 ${location.is_active_now ? '-' : `${location.end_date}` }
@@ -111,7 +111,7 @@ document.getElementById("report").addEventListener("click", function() {
           <td class="border px-4 py-2">${location.location_name}</td>
           <td class="border px-4 py-2">${location.start_date}</td>
           <td class="border px-4 py-2">${location.end_date ?? '-'}</td>
-          <td class="border px-4 py-2">${location.days_format}</td>
+          <td class="border px-4 py-2">${location.days_format} - ${location.project_format}</td>
           <td class="border px-4 py-2" style="color:${location.is_active_now ? 'green':'red'}">
             ${location.is_active_now ? 'Active' : 'Inactive'}
           </td>
@@ -122,7 +122,7 @@ document.getElementById("report").addEventListener("click", function() {
       
       let summaryTr = document.createElement("tr");
       summaryTr.innerHTML = `
-          <td class="border px-4 py-2 font-bold text-right" style="background-color: #D0FFBC" colspan="5">summary</td>
+          <td class="border px-4 py-2 font-bold text-right" style="background-color: #D0FFBC" colspan="7">summary</td>
           <td class="border px-4 py-2 font-bold" style="background-color: #D0FFBC">${company.total_days}</td>
           <td class="border px-4 py-2 font-bold" style="background-color: #D0FFBC">${company.total_location}</td>
       `;

@@ -144,6 +144,7 @@ def get_company_points_activity(company_name=None, location_name=None, start_ran
         # )
         companies[company]["detail"].append({
             "location_name": proj.location,
+            "project_format": proj.project_format.name,
             "pk": proj.pk,
             "geometry": proj.geometry,
             # "lat": proj.lat,

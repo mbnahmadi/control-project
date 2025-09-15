@@ -35,7 +35,7 @@ filterFormfb.addEventListener('submit', function(e) {
                         <div style="direction: ltr; text-align: left; font-family: sans-serif; font-size:16px">
                             <b style="color:#00008B">Company: </b><b style="color:#3b3b3b">${company.company_name}</b><br>
                             <b style="color:#00008B">Location: </b><b style="color:#3b3b3b">${location.location_name}</b><br>
-                            <b style="color:#00008B">format: </b><b style="color:#3b3b3b">${location.days_format}</b><br>
+                            <b style="color:#00008B">format: </b><b style="color:#3b3b3b">${location.days_format} - ${location.project_format}</b><br>
                             <b style="color:#00008B">start date: </b><b style="color:#3b3b3b">${location.start_date}</b><br> 
                             <b style="color:#00008B">end date: </b><b style="color:#3b3b3b">
                                 ${location.is_active_now ? '-' : `${location.end_date}` }
@@ -68,7 +68,7 @@ filterFormfb.addEventListener('submit', function(e) {
                         <div style="direction: ltr; text-align: left; font-family: sans-serif; font-size:16px">
                             <b style="color:#00008B">Company: </b><b style="color:#3b3b3b">${company.company_name}</b><br>
                             <b style="color:#00008B">Location: </b><b style="color:#3b3b3b">${location.location_name}</b><br>
-                            <b style="color:#00008B">format: </b><b style="color:#3b3b3b">${location.days_format}</b><br>
+                            <b style="color:#00008B">format: </b><b style="color:#3b3b3b">${location.days_format} - ${location.project_format}</b><br>
                             <b style="color:#00008B">start date: </b><b style="color:#3b3b3b">${location.start_date}</b><br> 
                             <b style="color:#00008B">end date: </b><b style="color:#3b3b3b">
                                 ${location.is_active_now ? '-' : `${location.end_date}` }
@@ -130,6 +130,10 @@ reportBtn.addEventListener("click", function() {
                         <tr>
                             <th class="border px-4 py-2 text-left">Location</th>
                             <td class="border px-4 py-2">${location.location_name}</td>
+                        </tr>
+                        <tr>
+                            <th class="border px-4 py-2 text-left">format</th>
+                            <td class="border px-4 py-2">${location.days_format} - ${location.project_format}</td>
                         </tr>
                         <tr class="bg-gray-100">
                             <th class="border px-4 py-2 text-left">Start</th>
