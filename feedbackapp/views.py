@@ -9,14 +9,21 @@ from projectapp.models import ProjectModel
 from rest_framework import status
 from django.http import FileResponse, HttpResponseNotFound
 from .services.feedback_service import get_company_feedback_activity
+from rest_framework.renderers import TemplateHTMLRenderer, JSONRenderer
 
 
 class ProjectsFeedBack(APIView):
-    def get(self, request):
+    # renderer_classes = [TemplateHTMLRenderer, JSONRenderer]
+    # template_name = 'frontendapp/frontendapp/home.html'
+    def get(self, request, id):
         # projects = ProjectModel.objects.filter(feedbacks__isnull=False)
-        projects = ProjectModel.has_feedback.all()
+        projects = ProjectModel.has_feedback.filter(id=id)
         # serializer = ProjectseFeedBackSerializer(project, many=True)
         serializer = ProjectFeedBackSerializer(projects, many=True, context={'request': request})
+        # context = {
+        #     'projects': serializer.data,
+        #     'company': serializer.data[0]['company_name'] if serializer.data else None
+        # }
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 class FeedBackCustomFilter(APIView):
@@ -37,5 +44,5 @@ class FeedBackCustomFilter(APIView):
                 )
 
         result = get_company_feedback_activity(company_name, location_name, start, end)
-        serializer = CompanyFeedbackSerializer(result, many=True)
+        serializer = CompanyFeedbackSerializer(result, many=True, context={'request': request})
         return Response(serializer.data, status=status.HTTP_200_OK)

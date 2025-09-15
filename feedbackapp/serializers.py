@@ -22,16 +22,31 @@ class FeedBackAttachmentModelSerializer(serializers.ModelSerializer):
             return self.context['request'].build_absolute_uri(obj.file.url)
         return None
 
+class FeedBackResponseModelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FeedBackResponseModel
+        fields = ['through', 'date', 'message', 'iso_form']
+
 
 class FeedBackModelSerializer(serializers.ModelSerializer):
     attachments = FeedBackAttachmentModelSerializer(many=True, read_only=True)
+    response = FeedBackResponseModelSerializer(read_only=True, source='responses')
     class Meta:
         model = FeedBackModel
-        fields = ['name', 'phone_number', 'through', 'date', 'message', 'attachments']
+        fields = ['name', 'phone_number', 'through', 'date', 'message', 'attachments', 'response']
 
 
 
-class ProjectFeedBackSerializer(GeoFeatureModelSerializer):
+# class ProjectFeedBackSerializer(GeoFeatureModelSerializer):
+#     feedbacks = FeedBackModelSerializer(many=True, read_only=True)
+#     company_name = serializers.CharField(source='company_name.name')
+#     days_format = serializers.CharField(source='days_format.format_name')
+#     class Meta:
+#         model = ProjectModel
+#         geo_field = 'geometry'
+#         fields = ['pk', 'company_name', 'geometry', 'location', 'is_active_now', 'days_format', 'start_date', 'end_date', 'feedbacks']
+
+class ProjectFeedBackSerializer(serializers.ModelSerializer):
     feedbacks = FeedBackModelSerializer(many=True, read_only=True)
     company_name = serializers.CharField(source='company_name.name')
     days_format = serializers.CharField(source='days_format.format_name')
@@ -42,23 +57,34 @@ class ProjectFeedBackSerializer(GeoFeatureModelSerializer):
 
 
 class FeedBackAttachmentSerializer(serializers.Serializer):
-    # file = serializers.SerializerMethodField()
-    file = serializers.CharField()
+    file = serializers.SerializerMethodField()
+    # file = serializers.CharField()
 
-    # def get_file(self, obj):
-    #     '''
-    #     http://localhost:8000/media/feedbacks/image.jpg
-    #     '''
-    #     request = self.context.get['request']
-    #     if request and obj.file:
-    #         return request.build_absolute_uri(obj.file.url)
-    #     return None
+    def get_file(self, obj):
+        '''
+        http://localhost:8000/media/feedbacks/image.jpg
+        '''
+        request = self.context.get('request')
+        file_obj = obj.get('file')
+        if request and file_obj:
+            return request.build_absolute_uri(file_obj.url)
+        return None
             
 class FeedBackResponseSerializer(serializers.Serializer):
     through = serializers.CharField()
     date = serializers.CharField()
     message = serializers.CharField()
-    iso_form = serializers.CharField()
+    iso_form = serializers.SerializerMethodField()
+
+    def get_iso_form(self, obj):
+        '''
+        http://localhost:8000/media/feedbacks/image.jpg
+        '''
+        request = self.context.get('request')
+        file_obj = obj.get('iso_form')
+        if request and file_obj:
+            return request.build_absolute_uri(file_obj.url)
+        return None
 
 
 class FeedBackSerializer(serializers.Serializer):
@@ -68,7 +94,7 @@ class FeedBackSerializer(serializers.Serializer):
     date = serializers.CharField()
     message = serializers.CharField()
     attachments = FeedBackAttachmentSerializer(many=True, read_only=True)
-    feedback_responses = FeedBackResponseSerializer(many=True, read_only=True)
+    response = FeedBackResponseSerializer(many=True, read_only=True)
     
 
 

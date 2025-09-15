@@ -19,6 +19,6 @@ from . import views
 
 
 urlpatterns = [
-    path('all-project-feedback/', views.ProjectsFeedBack.as_view(), name='all-project-feedback'),
+    path('locations-feedback/<int:id>/', views.ProjectsFeedBack.as_view(), name='locations-feedback'),
     path('feedback-custom-filter/', views.FeedBackCustomFilter.as_view(), name='feedback-custom-filter'),
 ]

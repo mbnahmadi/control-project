@@ -1,4 +1,5 @@
 {% load static %}
+{% load rest_framework %}
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
@@ -58,56 +59,32 @@
           </div>
     
 
-          <!-- Companies FeedBack -->
+          <!-- Companies FeedBack Filter -->
           <div class="section" onclick="toggleSection(this)">
             <span>Companies FeedBack</span>
-            <span class="arrow">&#9654;</span> <!-- right arrow -->
+            <span class="arrow">&#9654;</span>
           </div>
           <div class="content">
-            <form id="filter-form">
-              <label for="company">Company name:</label>
-              <input type="text" id="company" name="company_name">
-    
-              <label for="location">Location:</label>
-              <input type="text" id="location" name="location">
-    
-              <label for="start-date">Start date:</label>
-              <input type="date" id="start-date" name="start_date">
-    
-              <label for="end-date">End date:</label>
-              <input type="date" id="end-date" name="end_date">
-    
+            <form id="filter-form-fb">
+              <label for="company-fb">Company name:</label>  
+              <input type="text" id="company-fb" name="company_name"> 
+          
+              <label for="location-fb">Location:</label>
+              <input type="text" id="location-fb" name="location">
+          
+              <label for="start-date-fb">Start date:</label>
+              <input type="date" id="start-date-fb" name="start_date">
+          
+              <label for="end-date-fb">End date:</label>
+              <input type="date" id="end-date-fb" name="end_date">
+          
               <div class="btn">
-                <button id="submit" type="submit">Submit</button>
-                <button id="report" type="button">Report</button>
+                <button id="submit-fb"type="submit">Submit</button> 
+                <button id="report-fb" type="button">Report</button>  
               </div>
             </form>
           </div>
-            
-            
-            {% comment %} <button id="all-locations-btn">all locations</button>
-            <button id="active-locations-btn">active locations / routes</button>
-            <button id="all-routes-btn">all routes</button> {% endcomment %}
-            {% comment %} <form id="filter-form">
-                <label for="company">company name:</label>
-                <input type="text" id="company" name="company_name">
-    
-                <label for="location">location:</label>
-                <input type="text" id="location" name="location">
-    
-                <label for="start-date">start date:</label>
-                <input type="date" id="start-date" name="start_date">
-    
-                <label for="end-date">end date:</label>
-                <input type="date" id="end-date" name="end_date">
-                <div class="btn">
-                    <button id="submit" type="submit">submit filter</button>
-                    <button id="report">get report</button>
-                </div>
-            </form>
-            <div style="margin-top:150px;">
-                <button class="logout" ><a  href="{% url 'logout' %}">Logout</a></button>
-            </div> {% endcomment %}
+          
             
         </div>
 
@@ -116,16 +93,44 @@
         <div id="last-login" class="last-login-box">
         last login:
         </div>
+
+
+    </div>
+    <!-- pop up Feedback EACH point -->
+    <div id="reporfeedbacktModal" style="z-index:1000;" class="modal hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div class="bg-white rounded-lg shadow-lg w-5/6">
+        <div class="p-4 border-b flex justify-between items-center">
+          <h2 class="text-lg font-semibold">Feedback Report for {{company}}</h2>
+          <button id="closeModalfb" class="text-gray-500 hover:text-black text-2xl">&times;</button>
+        </div>
+        <div class="p-4 overflow-x-auto max-h-[80vh] overflow-y-auto">
+          <div id="reportfeedbackVerticalContainer" class="grid gap-4 grid-cols-1 md:grid-cols-2"></div>
+        </div>
+      </div>
     </div>
 
 
-    <div id="reportModal" class="modal hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-        <div class="bg-white rounded-lg shadow-lg w-3/4 max-w-3xl">
+    <!-- pop up Feedback total point -->
+    <div id="totalreporfeedbacktModal" style="z-index:1000;" class="modal hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div class="bg-white rounded-lg shadow-lg w-5/6">
+        <div class="p-4 border-b flex justify-between items-center">
+          <h2 class="text-lg font-semibold">Total Feedback Report</h2>
+          <button id="closeModaltotalfb" class="text-gray-500 hover:text-black text-2xl">&times;</button>
+        </div>
+        <div class="p-4 overflow-x-auto max-h-[80vh] overflow-y-auto">
+          <div id="totalreportfeedbackVerticalContainer" class="grid gap-4 grid-cols-1 md:grid-cols-1"></div>
+        </div>
+      </div>
+    </div>
+
+  <!-- pop up report activity -->
+    <div id="reportModal" style="z-index:1000;" class="modal hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg shadow-lg w-5/6 ">
           <div class="p-4 border-b flex justify-between items-center">
             <h2 class="text-lg font-semibold">Report</h2>
             <button id="closeModal" class="text-gray-500 hover:text-black text-2xl">&times;</button>
           </div>
-          <div class="p-4 overflow-x-auto max-h-[70vh] overflow-y-auto">
+          <div class="p-4 overflow-x-auto max-h-[80vh] overflow-y-auto">
             <table class="w-full border border-collapse text-sm">
               <thead>
                 <tr class="bg-gray-200">
@@ -151,7 +156,9 @@
     <script src="{% static 'leaflet/leaflet.js' %}"></script>
     <script src="{% static 'js/main.js' %}"></script>
     <script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
-    <script src="{% static 'leaflet/main-leaflet.js' %}"></script>
+    <script src="{% static 'leaflet/mapAndQuickaccess.js' %}"></script>
+    <script src="{% static 'leaflet/projectFilterReport.js' %}"></script>
+    <script src="{% static 'leaflet/feedbacksReports.js' %}"></script>
 
     
 </body>

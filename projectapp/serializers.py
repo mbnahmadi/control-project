@@ -23,6 +23,16 @@ class AllLocationsSerializers(GeoFeatureModelSerializer):
         fields = ['pk', 'company_name', 'geometry', 'location', 'is_active_now', 'start_date', 'end_date', 'days_format']
 
 
+class AllLocationsHasFeedbackSerializers(GeoFeatureModelSerializer):
+    company_name = serializers.CharField(source='company_name.name')
+    days_format = serializers.CharField(source='days_format.format_name')
+    has_feedback = serializers.BooleanField(default=True)
+    class Meta:
+        model = ProjectModel
+        geo_field = 'geometry'
+        fields = ['pk', 'company_name', 'geometry', 'location', 'is_active_now', 'start_date', 'end_date', 'days_format', 'has_feedback']
+
+
 class PointActivitySerializer(serializers.Serializer):
     pk = serializers.IntegerField()
     location_name = serializers.CharField()

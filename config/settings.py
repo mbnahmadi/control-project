@@ -79,7 +79,13 @@ AUTHENTICATION_BACKENDS = ["usersapp.backends.UsernameBackend"]
 # ---------------------------------------------------------
 LOGIN_URL = '/users/login/'
 # LOGIN_REDIRECT_URL
+
 # -----------------------------------------------------------
+
+# SESSION_COOKIE_AGE = 0   # یعنی سشن فقط تا وقتی مرورگر بازه معتبره
+# SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+# ------------------------------------------------------------
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -157,7 +163,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Tehran'
 
 USE_I18N = True
 

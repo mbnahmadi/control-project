@@ -6,7 +6,7 @@ from django.shortcuts import redirect
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.utils.timesince import timesince
-from django.utils.timezone import now
+from django.utils import timezone
 
 
 User = get_user_model()
@@ -30,10 +30,12 @@ class LastLoginView(APIView):
         try:
             user = request.user
             last_login = user.last_login
+            # print()
+            # print(timezone.now())
             return Response({
                 'username': user.username,
                 'last_login': last_login.strftime("%Y-%m-%d %H:%M:%S"),
-                'last_login_human': timesince(last_login, now()) + " ago"
+                'last_login_human': timesince(last_login, timezone.now()) + " ago"
             })
         except Exception as e:
             return Response({'error': str(e)})

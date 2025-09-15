@@ -3,13 +3,13 @@ from django.contrib.admin import ModelAdmin
 from .models import FeedBackModel, FeedBackResponseModel, FeedBackAttachmentModel
 # Register your models here.
 
-class FeedBackAttachmentInline(admin.TabularInline):
+class FeedBackAttachmentInline(admin.StackedInline):
     model = FeedBackAttachmentModel
     extra = 1
     min_num = 0
     max_num = 10
 
-class FeedBackResponseInline(admin.TabularInline):
+class FeedBackResponseInline(admin.StackedInline):
     model = FeedBackResponseModel
     extra = 0
     max_num = 1

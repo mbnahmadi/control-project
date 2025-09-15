@@ -33,6 +33,7 @@ class UserManager(BaseUserManager):
 
 class CustomUserModel(AbstractUser):
     email = models.EmailField(unique=True)
+    last_activity = models.DateTimeField(null=True, blank=True, db_index=True)
 
 
     objects = UserManager()

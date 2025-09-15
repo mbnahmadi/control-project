@@ -57,7 +57,7 @@ def get_company_feedback_activity(company_name=None, location_name=None, start_r
                     "through": res.through,
                     "date": res.date,
                     "message": res.message,
-                    "iso_form": getattr(res.iso_form, 'url', None),
+                    "iso_form": res.iso_form,
                 })
 
             attachments = []
@@ -72,7 +72,7 @@ def get_company_feedback_activity(company_name=None, location_name=None, start_r
                 "date": fb.date,
                 "message": fb.message,
                 "attachments": attachments,
-                "feedback_responses": responses
+                "response": responses
 
             })
 

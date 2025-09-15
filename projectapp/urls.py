@@ -22,6 +22,7 @@ urlpatterns = [
     path('get-active-locations/', views.GetActiveLocations.as_view(), name='get-active-locations'),
     path('get-all-locations/', views.GetAllLocationsView.as_view(), name='get-all-locations'),
     path('get-all-routes/', views.GetAllRoutesView.as_view(), name='get-all-routes'),
+    path('get-all-locations_has_feedback/', views.GetAllLocaionsHasFeedbackView.as_view(), name='get-all-locations_has_feedback'),
     # path('all-projects/', views.ShowAllProjectsView.as_view(), name='all-projects'),
     # path('all-companies-active-days/', views.CompanyActiveDaysAPIView.as_view(), name='all-companies-active-days'),
     path("company-location-daterange/", views.CompanyLocationDateRangeAPIView.as_view(), name="company-location-daterange"),

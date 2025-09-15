@@ -9,7 +9,7 @@ from .models import CompanyModel, ProjectModel
 from .services.project_service import get_company_points_activity
 from rest_framework import status
 from django.http import FileResponse, HttpResponseNotFound
-from .serializers import ActiveLocationsSerializers, CompanyPointsActivitySerializer, AllLocationsSerializers
+from .serializers import ActiveLocationsSerializers, CompanyPointsActivitySerializer, AllLocationsSerializers, AllLocationsHasFeedbackSerializers
 from django.db.models import CharField, Func
 
 class GeometryType(Func):
@@ -40,7 +40,7 @@ class GetAllLocationsView(APIView):
             serializer = AllLocationsSerializers(locations, many=True)
             return Response(serializer.data)
         except ProjectModel.DoesNotExist:
-            return Response({"error": "no active location found."}, status=404)
+            return Response({"error": "no location found."}, status=404)
 
 class GetAllRoutesView(APIView):
     '''
@@ -57,6 +57,16 @@ class GetAllRoutesView(APIView):
         except ProjectModel.DoesNotExist:
             return Response({"error": "no route found."}, status=404)
 
+class GetAllLocaionsHasFeedbackView(APIView):
+    def get(self, request):
+        try:
+            fb = ProjectModel.has_feedback.all()
+            serializer = AllLocationsHasFeedbackSerializers(fb, many=True)
+            return Response(serializer.data)
+        except ProjectModel.DoesNotExist:
+            return Response({"error": "no active location found."}, status=404)
+
+        # 
 
 def download_latest_pdf(request, project_id):
     '''
