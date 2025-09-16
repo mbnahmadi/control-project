@@ -37,30 +37,11 @@ Senior managers can **view locations on a map (Leaflet)** and query data through
 ---
 
 ## Tech Stack
-- **Backend:** Django, Django REST Framework (DRF)
+- **Backend:** Django, Django REST Framework (DRF), Django Rest Framework gis
 - **Admin Tools:** django-import-export, django-admin-rangefilter
-- **DB:** PostgreSQL (recommended)
+- **DB:** PostgreSQL
 - **Frontend Integration:** Leaflet.js (separate frontend)
 - **Storage:** Local `FileField` for PDFs and attachments
-
----
-
-## Data Model (Key Entities)
-- **CompanyModel**: `name`
-- **DayFormatModel**: `format_name`
-- **ProjectModel**:
-  - `company_name (FK)`, `location`, `lat`, `lon`, `description`, `image_description`
-  - `start_date`, `end_date`, `start_cycle`, `end_cycle`, `days_format (FK)`
-  - Computed: `total_days`, `total_cycle`, `is_active_now`
-  - `latest_pdf_path` for report downloads
-  - Managers: `objects` (all), `active_locations` (only active ones)
-
-- **FeedBackModel**:
-  - `project (FK)`, `name`, `phone_number`, `through`, `date`, `message`
-
-- **FeedBackResponseModel**:
-  - `feedback (OneToOne)`, `through`, `date`, `message`
-  - `attachment`, `iso_form` (file uploads)
 
 ---
 
@@ -70,15 +51,6 @@ For a given query range `[start, end]`:
 - If `end_date` is `NULL`, it’s treated as `end` for the overlap
 - `active_days = (overlap_end - overlap_start) + 1` (inclusive)
 
-
-## In Progress / Upcoming Features:
-
-- **Total Days Calculation per Company**:  
-  Currently, the system calculates the number of days a company has data within a selected date range. In upcoming versions, an additional feature will be added to calculate the **total number of days each company has recorded data** (regardless of the selected range).  
-  > This logic will be implemented at the database level to ensure better performance and efficiency.
-
-- **Ongoing Development**:  
-  This project is still under active development, and more improvements and new features will be added over time.
 
 ---
 ## Installation & Setup
