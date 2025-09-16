@@ -1,8 +1,8 @@
 from django.contrib import admin
 from import_export.admin import ExportMixin, ExportActionMixin
 from import_export import resources, fields
-from .models import CompanyModel, DayFormatModel, ProjectModel, ProjectFormatModel
-from .forms import ProjectAdminForm
+from .models import CompanyModel, DayFormatModel, ProjectModel, ProjectFormatModel, LocationModel
+from .forms import LocationAdminForm
 from feedbackapp.models import FeedBackModel, FeedBackResponseModel, FeedBackAttachmentModel
 from rangefilter.filters import DateRangeFilter
 from feedbackapp.filters import HasFeedBackFilter
@@ -15,7 +15,7 @@ class ProjectResource(resources.ModelResource):
     description = fields.Field(column_name='description', attribute='description')
     start_date = fields.Field(column_name='start date', attribute='start_date')
     end_date = fields.Field(column_name='end date', attribute='end_date')
-    location = fields.Field(column_name='location', attribute='location')
+    location = fields.Field(column_name='location', attribute='location__name', readonly=True)
     start_cycle_display = fields.Field(column_name='start cycle', attribute='start_cycle', readonly=True)
     end_cycle_display = fields.Field(column_name='end cycle', attribute='end_cycle', readonly=True)
     days_format = fields.Field(column_name='day format', attribute='days_format__format_name', readonly=True)
@@ -52,7 +52,6 @@ class FeedBackInline(NestedStackedInline):
 
 @admin.register(ProjectModel)
 class projectModelAdmin(ExportActionMixin, ExportMixin, NestedModelAdmin):
-    form = ProjectAdminForm
     inlines = [FeedBackInline]
     resource_class = ProjectResource
     list_display = ('company_name', 'location', 'start_date', 'end_date', 'total_days', 'days_format', 'is_active_now', 'has_feedback')
@@ -69,6 +68,12 @@ class projectModelAdmin(ExportActionMixin, ExportMixin, NestedModelAdmin):
 @admin.register(CompanyModel)
 class CompanyModelAdmin(admin.ModelAdmin):
     list_display = ('name',)
+
+# =========== Location model admin ===========
+@admin.register(LocationModel)
+class LocationModelAdmin(admin.ModelAdmin):
+    form = LocationAdminForm
+    list_display = ('name',) 
 
 # =========== project format model admin ===========
 @admin.register(DayFormatModel)

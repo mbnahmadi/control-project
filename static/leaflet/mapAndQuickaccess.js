@@ -124,19 +124,19 @@ map.on('popupopen', function (e) {
                                         <th class="border px-4 py-2 text-left">Location</th>
                                         <td class="border px-4 py-2">${location.location}</td>
                                     </tr>
-                                    <tr>
-                                        <th class="border px-4 py-2 text-left">Location</th>
+                                    <tr class="bg-gray-100">
+                                        <th class="border px-4 py-2 text-left">format</th>
                                         <td class="border px-4 py-2">${location.days_format} - ${location.project_format}</td>
                                     </tr>
-                                    <tr class="bg-gray-100">
+                                    <tr>
                                         <th class="border px-4 py-2 text-left">Start</th>
                                         <td class="border px-4 py-2">${location.start_date}</td>
                                     </tr>
-                                    <tr>
+                                    <tr class="bg-gray-100">
                                         <th class="border px-4 py-2 text-left">End</th>
                                         <td class="border px-4 py-2">${location.end_date ?? '-'}</td>
                                     </tr>
-                                    <tr class="bg-gray-100">
+                                    <tr>
                                         <th class="border px-4 py-2 text-left">Status</th>
                                         <td class="border px-4 py-2" style="color:${location.is_active_now ? 'green':'red'}">
                                             ${location.is_active_now ? 'Active' : 'Inactive'}

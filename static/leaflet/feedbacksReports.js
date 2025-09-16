@@ -131,27 +131,23 @@ reportBtn.addEventListener("click", function() {
                             <th class="border px-4 py-2 text-left">Location</th>
                             <td class="border px-4 py-2">${location.location_name}</td>
                         </tr>
-                        <tr>
+                        <tr class="bg-gray-100">
                             <th class="border px-4 py-2 text-left">format</th>
                             <td class="border px-4 py-2">${location.days_format} - ${location.project_format}</td>
                         </tr>
-                        <tr class="bg-gray-100">
+                        <tr>
                             <th class="border px-4 py-2 text-left">Start</th>
                             <td class="border px-4 py-2">${location.start_date}</td>
                         </tr>
-                        <tr>
+                        <tr class="bg-gray-100">
                             <th class="border px-4 py-2 text-left">End</th>
                             <td class="border px-4 py-2">${location.end_date ?? '-'}</td>
                         </tr>
-                        <tr class="bg-gray-100">
+                        <tr>
                             <th class="border px-4 py-2 text-left">Status</th>
                             <td class="border px-4 py-2" style="color:${location.is_active_now ? 'green':'red'}">
                                 ${location.is_active_now ? 'Active' : 'Inactive'}
                             </td>
-                        </tr>
-                        <tr>
-                            <th class="border px-4 py-2 text-left">Days</th>
-                            <td class="border px-4 py-2">${location.days_format}</td>
                         </tr>
 
                         <!-- اطلاعات feedback -->

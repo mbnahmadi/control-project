@@ -3,7 +3,7 @@ from django.contrib.gis.db import models as gis_models
 from django.contrib.gis.geos import Point, LineString
 from django.core.exceptions import ValidationError
 from django.contrib.gis.geos import Point, LineString
-from .models import ProjectModel
+from .models import LocationModel
 
 
 class GeometryTextArea(forms.Textarea):
@@ -44,7 +44,7 @@ class GeometryTextArea(forms.Textarea):
                 + str(e)
             )
 
-class ProjectAdminForm(forms.ModelForm):
+class LocationAdminForm(forms.ModelForm):
     geometry_input = forms.CharField(
         widget=forms.Textarea(attrs={"rows": 3, "cols": 40}),
         required=False,
@@ -53,7 +53,7 @@ class ProjectAdminForm(forms.ModelForm):
     )
 
     class Meta:
-        model = ProjectModel
+        model = LocationModel
         fields = "__all__"
         # widgets = {
         #     'geometry': GeometryTextArea(attrs={"rows": 3, "cols": 40}),

@@ -39,6 +39,51 @@ class ProjectFormatModel(models.Model):
     def __str__(self) -> str:
         return self.name
 
+
+class LocationModel(models.Model):
+    name = models.CharField(verbose_name=_('Location name'), max_length=255)
+    geometry = gis_models.GeometryField(verbose_name=_('Geometry'), srid=4326, spatial_index=True, blank=False, null=False) 
+
+    class Meta:
+        verbose_name = _('location')
+        verbose_name_plural = _('locations')
+        
+    def __str__(self) -> str:
+        return self.name
+
+    def is_point(self):
+        return self.geometry.geom_type == 'Point'
+
+    def is_line(self):
+        return self.geometry.geom_type == 'LineString'
+
+    @property
+    def display_point(self):
+        if not self.geometry:
+            return None
+        if self.is_point():
+            return self.geometry
+        return self.geometry.centroid
+    
+    @property
+    def lat(self):
+        dp = self.display_point
+        return None if dp is None else dp.y
+
+    @property
+    def lon(self):
+        dp = self.display_point
+        return None if dp is None else dp.x
+
+    def clean(self):
+        errors = {}
+        # چیزی به جز لاین و پوینت نمیتونیم داشته باشیم
+        if self.geometry and self.geometry.geom_type not in ('Point', 'LineString'):
+            errors['geometry'] = _('Geometry must be Point or LineString.')
+
+        if errors:
+            raise ValidationError(errors)
+
 # =========================================================
 
 # =================== Manager =============================
@@ -60,10 +105,10 @@ class ProjectModel(models.Model):
         ('1', _('cycle 1')),
         ('2', _('cycle 2'))
     ]
-    project_format = models.ForeignKey('ProjectFormatModel', on_delete=models.CASCADE, related_name='project_format', default=1)
-    company_name = models.ForeignKey('CompanyModel', on_delete=models.CASCADE, related_name='project')
-    geometry = gis_models.GeometryField(verbose_name=_('Geometry'), srid=4326, spatial_index=True, blank=False, null=False, 
-                                        help_text=_('format Input: Point → Lat,Lon | Line → Lat1,Lon1; Lat2,Lon2; Lat3,Lon3; ...')) # این میتونه هم لاین باشه هم پوینت
+    project_format = models.ForeignKey('ProjectFormatModel', on_delete=models.PROTECT, related_name='project_format', default=1)
+    company_name = models.ForeignKey('CompanyModel', on_delete=models.PROTECT, related_name='project')
+    location = models.ForeignKey('LocationModel', on_delete=models.PROTECT, related_name='location')
+    days_format = models.ForeignKey('DayFormatModel', on_delete=models.PROTECT, related_name='days_format')
     description = models.TextField(verbose_name=_('Description'), null=True, blank=True)
     attachment = models.FileField(upload_to=location_file_path, verbose_name=_('attachment'), null=True, blank=True)
     start_date = models.DateField(verbose_name=_('Start dateTime'))
@@ -72,8 +117,6 @@ class ProjectModel(models.Model):
     start_cycle = models.CharField(verbose_name=_('Start cycle'), choices=CYCLES_CHOICES, max_length=5, null=False, blank=False)
     end_cycle = models.CharField(verbose_name=_('End cycle'), choices=CYCLES_CHOICES, max_length=5,null=True, blank=True)
     total_cycle = models.PositiveIntegerField(verbose_name=_('Total cycle'), default=0, editable=False)
-    location = models.CharField(verbose_name=_('Location'), max_length=255)
-    days_format = models.ForeignKey('DayFormatModel', on_delete=models.CASCADE, related_name='days_format')
     is_active_now = models.BooleanField(verbose_name=_('is_active_now'), default=False, editable=False, db_index=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -86,39 +129,12 @@ class ProjectModel(models.Model):
     objects = models.Manager() # اصلی و شامل همه پروژه ها
     active_locations = ActiveLocationsManager() # فقط پروژه‌های بدون end_date و end_cycle
     has_feedback = HasFeedBackManager()
-    # --------------------------- Helpers for geometry ---------------------------------
-    def is_point(self):
-        return self.geometry.geom_type == 'Point'
 
-    def is_line(self):
-        return self.geometry.geom_type == 'LineString'
-    # ----------------------------------------------------------------------------------
-    @property
-    def display_point(self):
-        if not self.geometry:
-            return None
-        if self.is_point():
-            return self.geometry
-        # for LineString -> it's alwayes put in centroid
-        return self.geometry.centroid
-    
-    @property
-    def lat(self):
-        dp = self.display_point
-        return None if dp is None else dp.y
-
-    @property
-    def lon(self):
-        dp = self.display_point
-        return None if dp is None else dp.x
 
     
     # ----------------------- Validations -----------------------------
     def clean(self):
         errors = {}
-        # چیزی به جز لاین و پوینت نمیتونیم داشته باشیم
-        if self.geometry and self.geometry.geom_type not in ('Point', 'LineString'):
-            errors['geometry'] = _('Geometry must be Point or LineString.')
 
         if self.start_date and self.end_date and self.end_date < self.start_date:
             errors['end_date'] = _('End date cannot be before start date.')
