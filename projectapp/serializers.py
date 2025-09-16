@@ -10,16 +10,21 @@ class ActiveLocationsSerializers(GeoFeatureModelSerializer):
     company_name = serializers.CharField(source='company_name.name')
     days_format = serializers.CharField(source='days_format.format_name')
     project_format = serializers.CharField(source='project_format.name')
+    location = serializers.CharField(source='location.name')
+    geometry = GeometryField(source='location.geometry')
+
     class Meta:
         model = ProjectModel
         geo_field = 'geometry'
-        fields = ['pk', 'company_name', 'project_format', 'geometry', 'location', 'is_active_now', 'start_date', 'end_date', 'days_format']
+        fields = ['pk', 'company_name', 'project_format', 'location', 'geometry', 'is_active_now', 'start_date', 'end_date', 'days_format']
 
 
 class AllLocationsSerializers(GeoFeatureModelSerializer):
     company_name = serializers.CharField(source='company_name.name')
     days_format = serializers.CharField(source='days_format.format_name')
     project_format = serializers.CharField(source='project_format.name')
+    location = serializers.CharField(source='location.name')
+    geometry = GeometryField(source='location.geometry')
     class Meta:
         model = ProjectModel
         geo_field = 'geometry'
@@ -30,6 +35,8 @@ class AllLocationsHasFeedbackSerializers(GeoFeatureModelSerializer):
     company_name = serializers.CharField(source='company_name.name')
     days_format = serializers.CharField(source='days_format.format_name')
     project_format = serializers.CharField(source='project_format.name')
+    location = serializers.CharField(source='location.name')
+    geometry = GeometryField(source='location.geometry')
     has_feedback = serializers.BooleanField(default=True)
     class Meta:
         model = ProjectModel

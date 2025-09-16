@@ -98,7 +98,7 @@ from projectapp.models import ProjectModel, CompanyModel
 def get_company_points_activity(company_name=None, location_name=None, start_range=None, end_range=None):
     results = []
 
-    qs = ProjectModel.objects.all()
+    qs = ProjectModel.objects.select_related('company_name', 'location', 'project_format', 'days_format').all()
 
     # فیلتر بر اساس شرکت
     if company_name:
@@ -106,7 +106,7 @@ def get_company_points_activity(company_name=None, location_name=None, start_ran
 
     # فیلتر بر اساس لوکیشن
     if location_name:
-        qs = qs.filter(location__iexact=location_name)
+        qs = qs.filter(location__name__iexact=location_name)
 
     # فیلتر بر اساس بازه زمانی
     if start_range and end_range:
@@ -116,47 +116,46 @@ def get_company_points_activity(company_name=None, location_name=None, start_ran
     companies = {}
     for proj in qs:
         company = proj.company_name.name
+        loc_name = proj.location.name
+
         if company not in companies:
             companies[company] = {
                 "company_name": company,
                 "detail": [],
                 "total_days": 0,
-                "total_location": 0
+                "total_location_set": set()  # برای جلوگیری از تکراری شمردن
             }
 
-        # محاسبه active_days فقط اگر بازه داده شده باشه
+        # محاسبه active_days
         if start_range and end_range:
             active_start = max(proj.start_date, start_range)
             active_end = min(proj.end_date if proj.end_date else end_range, end_range)
             active_days = (active_end - active_start).days + 1
-
         else:
-            # active_days = 0
             today = date.today()
             active_start = proj.start_date
             active_end = min(proj.end_date if proj.end_date else today, today)
             active_days = (active_end - active_start).days + 1 if active_end >= active_start else 0
 
-        # geometry_to_send = proj.geometry.centroid if proj.is_line() else proj.geometry
-        # geometry_to_send = (
-        #     proj.geometry.centroid.geojson if proj.is_line()
-        #     else proj.geometry.geojson
-        # )
+        # اضافه کردن جزئیات پروژه
         companies[company]["detail"].append({
-            "location_name": proj.location,
+            "location_name": loc_name,
             "project_format": proj.project_format.name,
             "pk": proj.pk,
-            "geometry": proj.geometry,
-            # "lat": proj.lat,
-            # "lon": proj.lon,
+            "geometry": proj.location.geometry,  # گرفتن geojson از LocationModel
             "start_date": proj.start_date,
             "end_date": proj.end_date,
             "days_format": proj.days_format.format_name,
             "is_active_now": proj.is_active_now,
             "active_days": active_days
         })
+
         companies[company]["total_days"] += active_days
-        companies[company]["total_location"] += 1
+        companies[company]["total_location_set"].add(loc_name)  # جلوگیری از تکراری شمردن
+
+    # تبدیل set به تعداد کل
+    for comp in companies.values():
+        comp["total_location"] = len(comp.pop("total_location_set"))
 
     results = list(companies.values())
     return results

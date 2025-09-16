@@ -13,7 +13,6 @@ class FeedBackAttachmentModelSerializer(serializers.ModelSerializer):
         model = FeedBackAttachmentModel
         fields = ['id', 'file']
 
-
     def get_file(self, obj):
         '''
         http://localhost:8000/media/feedbacks/image.jpg
@@ -21,6 +20,7 @@ class FeedBackAttachmentModelSerializer(serializers.ModelSerializer):
         if obj.file:
             return self.context['request'].build_absolute_uri(obj.file.url)
         return None
+
 
 class FeedBackResponseModelSerializer(serializers.ModelSerializer):
     class Meta:
@@ -51,6 +51,8 @@ class ProjectFeedBackSerializer(serializers.ModelSerializer):
     company_name = serializers.CharField(source='company_name.name')
     days_format = serializers.CharField(source='days_format.format_name')
     project_format = serializers.CharField(source='project_format.name')
+    location = serializers.CharField(source='location.name')
+    geometry = GeometryField(source='location.geometry')
     class Meta:
         model = ProjectModel
         geo_field = 'geometry'
