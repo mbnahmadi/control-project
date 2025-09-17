@@ -98,9 +98,9 @@
     </div>
     <!-- pop up Feedback EACH point -->
     <div id="reporfeedbacktModal" style="z-index:1000;" class="modal hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div class="bg-white rounded-lg shadow-lg w-5/6">
+      <div class="bg-white rounded-lg shadow-lg w-1/2">
         <div class="p-4 border-b flex justify-between items-center">
-          <h2 class="text-lg font-semibold">Feedback Report for {{company}}</h2>
+          <h2 class="text-lg font-semibold">Feedback Report</h2>
           <button id="closeModalfb" class="text-gray-500 hover:text-black text-2xl">&times;</button>
         </div>
         <div class="p-4 overflow-x-auto max-h-[80vh] overflow-y-auto">
@@ -149,9 +149,7 @@
             </table>
           </div>
         </div>
-    </div>
-        
- 
+    </div> 
     
     <script src="{% static 'leaflet/leaflet.js' %}"></script>
     <script src="{% static 'js/main.js' %}"></script>
@@ -159,6 +157,9 @@
     <script src="{% static 'leaflet/mapAndQuickaccess.js' %}"></script>
     <script src="{% static 'leaflet/projectFilterReport.js' %}"></script>
     <script src="{% static 'leaflet/feedbacksReports.js' %}"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="{% static 'chart/totaldaysactivity.js' %}"></script>
 
     
 </body>

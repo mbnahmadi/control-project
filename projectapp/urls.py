@@ -27,6 +27,10 @@ urlpatterns = [
     # path('all-companies-active-days/', views.CompanyActiveDaysAPIView.as_view(), name='all-companies-active-days'),
     path("company-location-daterange/", views.CompanyLocationDateRangeAPIView.as_view(), name="company-location-daterange"),
 
+    # dashboard
+    path("days-per-month/all/", views.ProjectDaysPerMonthAllYearsView.as_view(), name="days-per-month-all"),
+    path("company-location-range/all/", views.CompanyLocationRangesView.as_view(), name="company-location-range"),
+
     path('download-pdf/<int:project_id>/', views.download_latest_pdf, name='download_pdf'),
 
 ]

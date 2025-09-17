@@ -7,9 +7,10 @@ from rest_framework.response import Response
 from django.views import View
 from .models import CompanyModel, ProjectModel
 from .services.project_service import get_company_points_activity
+from .services.dashboard import calculate_days_per_month_all_years, get_company_location_ranges
 from rest_framework import status
 from django.http import FileResponse, HttpResponseNotFound
-from .serializers import ActiveLocationsSerializers, CompanyPointsActivitySerializer, AllLocationsSerializers, AllLocationsHasFeedbackSerializers
+from .serializers import CompanyPointsActivitySerializer, ProjectSerializers
 from django.db.models import CharField, Func
 
 class GeometryType(Func):
@@ -25,7 +26,7 @@ class GetActiveLocations(APIView):
     def get(self, request):
         try:
             active = ProjectModel.active_locations.all()
-            serializer = ActiveLocationsSerializers(active, many=True)
+            serializer = ProjectSerializers(active, many=True)
             return Response(serializer.data)
         except ProjectModel.DoesNotExist:
             return Response({"error": "no active location found."}, status=404)
@@ -37,7 +38,7 @@ class GetAllLocationsView(APIView):
     def get(self, request):
         try:
             locations = ProjectModel.objects.all()
-            serializer = AllLocationsSerializers(locations, many=True)
+            serializer = ProjectSerializers(locations, many=True)
             return Response(serializer.data)
         except ProjectModel.DoesNotExist:
             return Response({"error": "no location found."}, status=404)
@@ -51,7 +52,7 @@ class GetAllRoutesView(APIView):
             routes = ProjectModel.objects.annotate(
                 geom_type=GeometryType('location__geometry')
             ).filter(geom_type='ST_LineString')
-            serializer = AllLocationsSerializers(routes, many=True)
+            serializer = ProjectSerializers(routes, many=True)
 
             return Response(serializer.data)
         except ProjectModel.DoesNotExist:
@@ -61,7 +62,7 @@ class GetAllLocaionsHasFeedbackView(APIView):
     def get(self, request):
         try:
             fb = ProjectModel.has_feedback.all()
-            serializer = AllLocationsHasFeedbackSerializers(fb, many=True)
+            serializer = ProjectSerializers(fb, many=True)
             return Response(serializer.data)
         except ProjectModel.DoesNotExist:
             return Response({"error": "no active location found."}, status=404)
@@ -107,3 +108,30 @@ class CompanyLocationDateRangeAPIView(APIView):
 
         serializer = CompanyPointsActivitySerializer(result, many=True, context={'request': request})
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+# @cache_page
+class ProjectDaysPerMonthAllYearsView(APIView):
+    """
+    Return number of project days grouped by month for all available years.
+    """
+    def get(self, request):
+        try:
+            year = request.query_params.get('year')
+            data = calculate_days_per_month_all_years(filter_year=year)
+            return Response(data)
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class CompanyLocationRangesView(APIView):
+    """
+    Return number of project days grouped by month for all available years.
+    """
+    def get(self, request):
+        try:
+            company_name_filter = request.query_params.get("company", None)
+            data = get_company_location_ranges(company_name_filter)
+            return Response(data)
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

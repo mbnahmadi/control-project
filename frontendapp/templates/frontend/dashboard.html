@@ -1,0 +1,35 @@
+{% load static %}
+{% load rest_framework %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/tablecss.css' %}">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css" />
+    <title>OR Management System</title>
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Roboto);
+
+        body {
+        font-family: Roboto, sans-serif;
+        }
+
+        #chart {
+            max-width: 650px;
+            margin: 35px auto;
+        }
+          
+    </style>
+</head>
+<body>
+
+    <div id="chart" ></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="{% static 'chart/totaldaysactivity.js' %}"></script>
+</body>
+</html>
