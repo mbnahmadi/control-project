@@ -1,9 +1,11 @@
+from typing import Required
 from django import forms
 from django.contrib.gis.db import models as gis_models
 from django.contrib.gis.geos import Point, LineString
 from django.core.exceptions import ValidationError
 from django.contrib.gis.geos import Point, LineString
-from .models import LocationModel
+from .models import LocationModel, ProjectModel
+from core.latest_pdf import generate_latest_pdf_address
 
 
 class GeometryTextArea(forms.Textarea):
@@ -103,3 +105,34 @@ class LocationAdminForm(forms.ModelForm):
             instance.save()  # حالا save واقعی
             self.save_m2m()  # اگر m2m فیلدی داری
         return instance
+
+
+class ProjectAdminForm(forms.ModelForm):
+    project_address = forms.CharField(
+        required=False, 
+        help_text='please insert name of company and location in server. e.g-> AkamIndustry10Days_V01/SPD6',
+        label = 'project address in server'
+        )
+
+    class Meta:
+        model = ProjectModel
+        fields = "__all__"
+
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+        project_address = self.cleaned_data.get('project_address')
+        print(project_address)
+        if project_address:
+            try:
+                company_name, location_name = project_address.split('/', 1)
+                pdf_path= generate_latest_pdf_address(company_name, location_name)
+                print(pdf_path)
+                if pdf_path:
+                    instance.latest_pdf_path = pdf_path
+            except ValueError:
+                pass
+
+        if commit:
+            instance.save()
+        return instance
+

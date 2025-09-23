@@ -49,7 +49,7 @@ class LocationModel(models.Model):
         verbose_name_plural = _('locations')
         
     def __str__(self) -> str:
-        return self.name
+        return f"{self.name}"
 
     def is_point(self):
         return self.geometry.geom_type == 'Point'

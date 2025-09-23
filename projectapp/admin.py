@@ -1,8 +1,9 @@
+from audioop import add
 from django.contrib import admin
 from import_export.admin import ExportMixin, ExportActionMixin
 from import_export import resources, fields
 from .models import CompanyModel, DayFormatModel, ProjectModel, ProjectFormatModel, LocationModel
-from .forms import LocationAdminForm
+from .forms import LocationAdminForm, ProjectAdminForm
 from feedbackapp.models import FeedBackModel, FeedBackResponseModel, FeedBackAttachmentModel
 from rangefilter.filters import DateRangeFilter
 from feedbackapp.filters import HasFeedBackFilter
@@ -52,6 +53,7 @@ class FeedBackInline(NestedStackedInline):
 
 @admin.register(ProjectModel)
 class projectModelAdmin(ExportActionMixin, ExportMixin, NestedModelAdmin):
+    form = ProjectAdminForm
     inlines = [FeedBackInline]
     resource_class = ProjectResource
     list_display = ('company_name', 'location', 'start_date', 'end_date', 'total_days', 'days_format', 'is_active_now', 'has_feedback')
