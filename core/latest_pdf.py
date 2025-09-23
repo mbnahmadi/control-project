@@ -3,7 +3,7 @@ import glob
 from decouple import config
 from projectapp.models import ProjectModel
 
-BASE_SERVER_ADDRESS = config('BASED_SERVER_ADDRESS')
+BASE_SERVER_ADDRESS = config('BASE_SERVER_ADDRESS')
 
 # BASE_SERVER_ADDRESS = '/var/www/pdfs/'
 # BASE_SERVER_ADDRESS = './pdfs'

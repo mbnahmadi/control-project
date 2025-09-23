@@ -98,7 +98,7 @@ from projectapp.models import ProjectModel, CompanyModel
 def get_company_points_activity(company_name=None, location_name=None, start_range=None, end_range=None):
     results = []
 
-    qs = ProjectModel.objects.select_related('company_name', 'location', 'project_format', 'days_format').all()
+    qs = ProjectModel.objects.select_related('company_name', 'location_name', 'project_format', 'days_format').all()
 
     # فیلتر بر اساس شرکت
     if company_name:
@@ -116,7 +116,7 @@ def get_company_points_activity(company_name=None, location_name=None, start_ran
     companies = {}
     for proj in qs:
         company = proj.company_name.name
-        loc_name = proj.location.name
+        loc_name = proj.location_name.name
 
         if company not in companies:
             companies[company] = {
@@ -142,7 +142,7 @@ def get_company_points_activity(company_name=None, location_name=None, start_ran
             "location_name": loc_name,
             "project_format": proj.project_format.name,
             "pk": proj.pk,
-            "geometry": proj.location.geometry,  # گرفتن geojson از LocationModel
+            "geometry": proj.location_name.geometry,  # گرفتن geojson از LocationModel
             "start_date": proj.start_date,
             "end_date": proj.end_date,
             "days_format": proj.days_format.format_name,

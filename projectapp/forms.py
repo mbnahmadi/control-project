@@ -119,20 +119,11 @@ class ProjectAdminForm(forms.ModelForm):
         fields = "__all__"
 
     def save(self, commit=True):
-        instance = super().save(commit=False)
-        project_address = self.cleaned_data.get('project_address')
-        print(project_address)
-        if project_address:
-            try:
-                company_name, location_name = project_address.split('/', 1)
-                pdf_path= generate_latest_pdf_address(company_name, location_name)
-                print(pdf_path)
-                if pdf_path:
-                    instance.latest_pdf_path = pdf_path
-            except ValueError:
-                pass
-
-        if commit:
-            instance.save()
+        instance = super().save(commit=commit) # first save project_address 
+        if instance.project_address: # then 
+            pdf_path= instance.generate_latest_pdf_address()
+            if pdf_path:
+                instance.latest_pdf_path = pdf_path
+                instance.save(update_fields=['latest_pdf_path'])
         return instance
 

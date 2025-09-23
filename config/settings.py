@@ -64,8 +64,8 @@ REST_FRAMEWORK = {
 
 # ------------ celery ---------------------------------
 
-CELERY_BROKER_URL = 'redis://127.0.0.1:6379/2'
-CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379/2'
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379/0'
+CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379/0'
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
@@ -85,7 +85,13 @@ LOGIN_URL = '/users/login/'
 # SESSION_COOKIE_AGE = 0   # یعنی سشن فقط تا وقتی مرورگر بازه معتبره
 # SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 # ------------------------------------------------------------
-
+# --------------------- cache --------------------------------
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",
+    }
+}
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

@@ -16,7 +16,7 @@ class ProjectResource(resources.ModelResource):
     description = fields.Field(column_name='description', attribute='description')
     start_date = fields.Field(column_name='start date', attribute='start_date')
     end_date = fields.Field(column_name='end date', attribute='end_date')
-    location = fields.Field(column_name='location', attribute='location__name', readonly=True)
+    location_name = fields.Field(column_name='location', attribute='location_name__name', readonly=True)
     start_cycle_display = fields.Field(column_name='start cycle', attribute='start_cycle', readonly=True)
     end_cycle_display = fields.Field(column_name='end cycle', attribute='end_cycle', readonly=True)
     days_format = fields.Field(column_name='day format', attribute='days_format__format_name', readonly=True)
@@ -25,12 +25,12 @@ class ProjectResource(resources.ModelResource):
         model = ProjectModel
         fields = (
             'id', 'company_name', 'description', 'start_date',
-            'end_date', 'total_days', 'location', 'start_cycle_display',
+            'end_date', 'total_days', 'location_name', 'start_cycle_display',
             'end_cycle_display', 'total_cycle', 'days_format',
         )
         export_order = (
             'id', 'company_name', 'description', 'start_date',
-            'end_date', 'total_days', 'location', 'start_cycle_display',
+            'end_date', 'total_days', 'location_name', 'start_cycle_display',
             'end_cycle_display', 'total_cycle', 'days_format'
         )
 
@@ -56,8 +56,8 @@ class projectModelAdmin(ExportActionMixin, ExportMixin, NestedModelAdmin):
     form = ProjectAdminForm
     inlines = [FeedBackInline]
     resource_class = ProjectResource
-    list_display = ('company_name', 'location', 'start_date', 'end_date', 'total_days', 'days_format', 'is_active_now', 'has_feedback')
-    list_filter = ('company_name', 'location', HasFeedBackFilter)
+    list_display = ('company_name', 'location_name', 'start_date', 'end_date', 'total_days', 'days_format', 'is_active_now', 'has_feedback')
+    list_filter = ('company_name', 'location_name', HasFeedBackFilter, 'is_active_now')
     search_fields = ('company_name__name', 'start_date', 'end_date')
     readonly_fields = ('total_cycle', 'total_days', 'is_active_now')
 

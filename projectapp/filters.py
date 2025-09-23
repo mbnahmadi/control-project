@@ -7,14 +7,13 @@ class ProjectFilter(filters.FilterSet):
     start_date = filters.DateFilter(method='filter_by_date_range')
     end_date = filters.DateFilter(method='filter_by_date_range')
     company_name = filters.CharFilter(field_name='company_name__name', lookup_expr='iexact')
-    location = filters.CharFilter(field_name='location', lookup_expr='iexact')
+    location = filters.CharFilter(field_name='location_name', lookup_expr='iexact')
 
     def filter_by_date_range(self, queryset, name, value):
         # دریافت start_date و end_date از درخواست کاربر
         start_date = self.data.get('start_date')
         end_date = self.data.get('end_date')
 
-        # اگر هر دو تاریخ ارائه شده باشند، فیلتر را اعمال کن
         if start_date and end_date:
             return queryset.filter(
                 # شرط 1: پروژه‌هایی که start_date و end_date در بازه مشخص هستند
