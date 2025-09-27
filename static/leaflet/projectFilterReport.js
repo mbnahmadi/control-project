@@ -7,13 +7,13 @@ filterForm.addEventListener('submit', function(e) {
     e.preventDefault();
 
     let company_name = document.getElementById('company').value;
-    let location = document.getElementById('location').value;
+    let location_name = document.getElementById('location').value;
     let start = document.getElementById('start-date').value;
     let end = document.getElementById('end-date').value;
 
     let query = new URLSearchParams();
     if (company_name) query.append('company_name', company_name);
-    if (location) query.append('location_name', location);
+    if (location_name) query.append('location_name', location_name);
     if (start) query.append('start', start);
     if (end) query.append('end', end);
 

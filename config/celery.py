@@ -1,23 +1,22 @@
 from __future__ import absolute_import, unicode_literals
 import os
-import os
 from celery import Celery
+from celery.schedules import crontab
 # from django.conf import settings
 
-# اگر متغیر محیطی تعریف نشده بود، پیش‌فرض dev استفاده میشه
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
-
 app = Celery('config')
-
-# اینجا سلری خودش تمام متغیرهای CELERY_* رو از ستینگ میگیره
 app.config_from_object('django.conf:settings', namespace='CELERY')
-
-# کشف خودکار تسک‌ها از اپ‌ها
 app.autodiscover_tasks()
-app.conf.update(
-    task_default_queue='celery',
-)
-# تست ساده
-@app.task(bind=True)
-def debug_task(self):
-    print(f'Request: {self.request!r}')
+# app.conf.update(
+#     task_default_queue='celery',
+# )
+
+app.conf.beat_schedule = {
+    'update_pdfs_every_12_hours': {
+        'task': 'projectapp.tasks.update_active_projects_pdfs',
+        # 'schedule': crontab(minute='*/2'),
+        'schedule': crontab(minute=0, hour='5,17'),
+        'args': ()
+    }
+}

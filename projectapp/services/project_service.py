@@ -100,19 +100,15 @@ def get_company_points_activity(company_name=None, location_name=None, start_ran
 
     qs = ProjectModel.objects.select_related('company_name', 'location_name', 'project_format', 'days_format').all()
 
-    # فیلتر بر اساس شرکت
     if company_name:
         qs = qs.filter(company_name__name__iexact=company_name)
 
-    # فیلتر بر اساس لوکیشن
     if location_name:
         qs = qs.filter(location__name__iexact=location_name)
 
-    # فیلتر بر اساس بازه زمانی
     if start_range and end_range:
         qs = qs.filter(start_date__lte=end_range).filter(Q(end_date__gte=start_range) | Q(end_date__isnull=True))
 
-    # گروه‌بندی بر اساس شرکت
     companies = {}
     for proj in qs:
         company = proj.company_name.name
@@ -126,7 +122,6 @@ def get_company_points_activity(company_name=None, location_name=None, start_ran
                 "total_location_set": set()  # برای جلوگیری از تکراری شمردن
             }
 
-        # محاسبه active_days
         if start_range and end_range:
             active_start = max(proj.start_date, start_range)
             active_end = min(proj.end_date if proj.end_date else end_range, end_range)
@@ -137,12 +132,11 @@ def get_company_points_activity(company_name=None, location_name=None, start_ran
             active_end = min(proj.end_date if proj.end_date else today, today)
             active_days = (active_end - active_start).days + 1 if active_end >= active_start else 0
 
-        # اضافه کردن جزئیات پروژه
         companies[company]["detail"].append({
             "location_name": loc_name,
             "project_format": proj.project_format.name,
             "pk": proj.pk,
-            "geometry": proj.location_name.geometry,  # گرفتن geojson از LocationModel
+            "geometry": proj.location_name.geometry,  
             "start_date": proj.start_date,
             "end_date": proj.end_date,
             "days_format": proj.days_format.format_name,

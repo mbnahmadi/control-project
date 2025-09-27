@@ -28,7 +28,7 @@ def get_company_feedback_activity(company_name=None, location_name=None, start_r
     companies = {}
     for proj in qs:
         company = proj.company_name.name
-        loc_name = proj.location.name
+        loc_name = proj.location_name.name
 
         if company not in companies:
             companies[company] = {
@@ -75,7 +75,7 @@ def get_company_feedback_activity(company_name=None, location_name=None, start_r
             "project_format": proj.project_format.name,
             "location_name": loc_name,
             "pk": proj.pk,
-            "geometry": proj.location.geometry,  
+            "geometry": proj.location_name.geometry,  
             "start_date": proj.start_date,
             "end_date": proj.end_date,
             "days_format": proj.days_format.format_name,

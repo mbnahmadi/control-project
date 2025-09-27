@@ -75,7 +75,6 @@ def download_latest_pdf(request, project_id):
     '''
     project = ProjectModel.active_locations.get(id=project_id)
     if project.latest_pdf_path and os.path.exists(project.latest_pdf_path):
-        # استخراج filename از مسیر برای دانلود
         filename = os.path.basename(project.latest_pdf_path)
         response = FileResponse(open(project.latest_pdf_path, 'rb'), content_type='application/pdf')
         response['Content-Disposition'] = f'attachment; filename="{filename}"'

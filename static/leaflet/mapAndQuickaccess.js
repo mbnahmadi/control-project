@@ -28,7 +28,7 @@ function loadLocations(url) {
                 let popupContent = `
                     <div style="direction:ltr;text-align:left;font-family:sans-serif;font-size:16px">
                         <b style="color:#00008B">Company: </b><b>${props.company_name}</b><br>
-                        <b style="color:#00008B">Location: </b><b>${props.location}</b><br>
+                        <b style="color:#00008B">Location: </b><b>${props.location_name}</b><br>
                         <b style="color:#00008B">Format: </b><b>${props.days_format} - ${props.project_format}</b><br>
                         <b style="color:#00008B">Start: </b><b>${props.start_date}</b><br>
                         <b style="color:#00008B">End: </b><b>${props.end_date ?? '-'}</b><br>
@@ -122,7 +122,7 @@ map.on('popupopen', function (e) {
                                     </tr>
                                     <tr>
                                         <th class="border px-4 py-2 text-left">Location</th>
-                                        <td class="border px-4 py-2">${location.location}</td>
+                                        <td class="border px-4 py-2">${location.location_name}</td>
                                     </tr>
                                     <tr class="bg-gray-100">
                                         <th class="border px-4 py-2 text-left">format</th>

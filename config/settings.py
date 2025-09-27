@@ -46,6 +46,9 @@ INSTALLED_APPS = [
     'rest_framework_gis',
     'django_filters',
     'nested_admin',
+    #celery
+    'django_celery_results',
+    'django_celery_beat',
     #apps
     'projectapp.apps.ProjectappConfig',
     'usersapp.apps.UsersappConfig',
@@ -65,12 +68,16 @@ REST_FRAMEWORK = {
 # ------------ celery ---------------------------------
 
 CELERY_BROKER_URL = 'redis://127.0.0.1:6379/0'
-CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379/0'
+CELERY_RESULT_BACKEND = 'django-db'
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TIMEZONE = 'UTC'
-
+CELERY_TIMEZONE = 'Asia/Tehran'
+CELERY_ENABLE_UTC = False
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
+CELERY_IMPORTS = (
+    'projectapp.tasks',
+)
 # -------------------------------------------------------
 
 EXPORT_FORMATS = [XLSX]
@@ -92,6 +99,10 @@ CACHES = {
         "LOCATION": "redis://127.0.0.1:6379/1",
     }
 }
+
+# ----------------------------- LOGGING ---------------------------
+
+# -----------------------------------------------------------------
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

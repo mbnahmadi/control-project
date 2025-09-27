@@ -1,15 +1,11 @@
-from celery import shared_task
 import time
+from celery import shared_task
+from .models import ProjectModel
 
 @shared_task
-def send_test_email(user_email):
-    # شبیه‌سازی ارسال ایمیل
-    print(f"Sending email to {user_email}...")
-    time.sleep(5)  # شبیه‌سازی زمان ارسال
-    print(f"Email sent to {user_email}!")
-    return f"Email sent to {user_email}"
-
-
-@shared_task
-def add(x, y):
-    return x + y
+def update_active_projects_pdfs():
+    active_projects = ProjectModel.active_locations.only('id', 'project_address', 'latest_pdf_path').iterator()
+    for project in active_projects:
+        new_path = project.generate_latest_pdf_address()
+        if new_path and new_path != project.latest_pdf_path:
+            ProjectModel.objects.filter(id=project.id).update(latest_pdf_path=new_path)

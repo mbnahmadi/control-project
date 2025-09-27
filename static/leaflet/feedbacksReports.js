@@ -7,13 +7,13 @@ filterFormfb.addEventListener('submit', function(e) {
     e.preventDefault();
 
     let company_name= document.getElementById('company-fb').value; // Adjust ID if different
-    let location = document.getElementById('location-fb').value; // Adjust ID if different
+    let location_name = document.getElementById('location-fb').value; // Adjust ID if different
     let start = document.getElementById('start-date-fb').value; // Adjust ID if different
     let end = document.getElementById('end-date-fb').value; // Adjust ID if different
 
     let query = new URLSearchParams();
     if (company_name) query.append('company_name', company_name);
-    if (location) query.append('location_name', location);
+    if (location_name) query.append('location_name', location_name);
     if (start) query.append('start', start);
     if (end) query.append('end', end);
 
