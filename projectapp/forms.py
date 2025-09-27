@@ -1,4 +1,3 @@
-from typing import Required
 from django import forms
 from django.contrib.gis.db import models as gis_models
 from django.contrib.gis.geos import Point, LineString

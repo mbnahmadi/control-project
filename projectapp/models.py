@@ -155,7 +155,7 @@ class ProjectModel(models.Model):
             if not gfs_folders:
                 return None
             latest_gfs = max(gfs_folders, key=lambda x: datetime.datetime.strptime(x[4:], '%Y%m%d%H') if x.startswith('gfs.') else datetime.min)
-            cache.set(cache_key, latest_gfs, 60)  # 5 hour 
+            cache.set(cache_key, latest_gfs, 60 * 60 * 12)  # 5 hour 
 
         gfs_path = os.path.join(base_path, latest_gfs)
         pdf_files = glob.glob(os.path.join(gfs_path, f"{location}_*.pdf"))[0]

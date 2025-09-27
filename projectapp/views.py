@@ -50,7 +50,7 @@ class GetAllRoutesView(APIView):
     def get(self, request):
         try:
             routes = ProjectModel.objects.annotate(
-                geom_type=GeometryType('location__geometry')
+                geom_type=GeometryType('location_name__geometry')
             ).filter(geom_type='ST_LineString')
             serializer = ProjectSerializers(routes, many=True)
 

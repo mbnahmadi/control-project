@@ -11,8 +11,8 @@ class ProjectSerializers(GeoFeatureModelSerializer):
     company_name = serializers.CharField(source='company_name.name')
     days_format = serializers.CharField(source='days_format.format_name')
     project_format = serializers.CharField(source='project_format.name')
-    location = serializers.CharField(source='location.name')
-    geometry = GeometryField(source='location.geometry')
+    location_name = serializers.CharField(source='location_name.name')
+    geometry = GeometryField(source='location_name.geometry')
     has_feedback = serializers.SerializerMethodField()
 
     def get_has_feedback(self, obj):
@@ -21,7 +21,7 @@ class ProjectSerializers(GeoFeatureModelSerializer):
     class Meta:
         model = ProjectModel
         geo_field = 'geometry'
-        fields = ['pk', 'company_name', 'project_format', 'geometry', 'location', 'is_active_now', 'start_date', 'end_date', 'days_format', 'has_feedback']
+        fields = ['pk', 'company_name', 'project_format', 'geometry', 'location_name', 'is_active_now', 'start_date', 'end_date', 'days_format', 'has_feedback']
 
 
 class PointActivitySerializer(serializers.Serializer):
