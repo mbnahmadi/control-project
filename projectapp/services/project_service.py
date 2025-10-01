@@ -104,7 +104,7 @@ def get_company_points_activity(company_name=None, location_name=None, start_ran
         qs = qs.filter(company_name__name__iexact=company_name)
 
     if location_name:
-        qs = qs.filter(location__name__iexact=location_name)
+        qs = qs.filter(location_name__name__iexact=location_name)
 
     if start_range and end_range:
         qs = qs.filter(start_date__lte=end_range).filter(Q(end_date__gte=start_range) | Q(end_date__isnull=True))
